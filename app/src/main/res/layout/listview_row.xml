@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:id="@+id/linearLayoutX1"
+    android:divider="#D2D2D2">
+    <ImageView
+        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="30"
+        android:id="@+id/imageProduct1"
+        android:minHeight="10dp"
+        android:minWidth="10dp"
+        android:layout_gravity="center" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:minWidth="10px"
+        android:minHeight="10px"
+        android:layout_weight="60"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/linearLayout1"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+        <TextView
+            android:text="Text1"
+            android:gravity="left"
+            android:id="@+id/textViewX1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="80"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:text="Text2"
+            android:gravity="left"
+            android:id="@+id/textViewX2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="80" />
+        <TextView
+            android:text="Text3"
+            android:gravity="right"
+            android:id="@+id/textViewX3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="80"
+            android:textStyle="italic"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:id="@+id/linearLayout2"
+        android:minWidth="25px"
+        android:minHeight="25px">
+        <NumberPicker
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/numPicker"
+            android:saveEnabled="true"
+            android:minWidth="10dp"
+            android:minHeight="10dp" />
+    </LinearLayout>
+</LinearLayout>

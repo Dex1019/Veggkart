@@ -17,8 +17,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewDebug;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,8 +34,13 @@ public class MainActivity extends AppCompatActivity
     private TextView textView1;
     private Button frag_button;
     private ClipData.Item item;
+    private List<Product> items2, items3;
+    private List<Product>[] items = new ArrayList[7];
+    private ListView productListView;
+    private MyListViewAdapter adapter;
 
     FragmentManager fm = getSupportFragmentManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,19 +48,21 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        frag_button = (Button) findViewById(R.id.frag_button);
-//        frag_button.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View arg0) {
-//                Contact_Us_Activity dFragment = new Contact_Us_Activity();
-//                // Show DialogFragment
-//                dFragment.show(fm, "Dialog Fragment");
-//            }
-//        });
+/*
+        frag_button = (Button) findViewById(R.id.frag_button);
+        frag_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Contact_Us_Activity dFragment = new Contact_Us_Activity();
+//                 Show DialogFragment
+                dFragment.show(fm, "Dialog Fragment");
+            }
+        });
+*/
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               startActivity(new Intent(MainActivity.this,cart_activity.class));
+                startActivity(new Intent(MainActivity.this, cart_activity.class));
             }
         });
 
@@ -63,22 +75,30 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-    textView1 = (TextView) findViewById(R.id.textView1);
-    tabLayout = (TabLayout) findViewById(R.id.tabs);
+//        textView1 = (TextView) findViewById(R.id.textView1);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        productListView = (ListView) findViewById(R.id.mainListView);
+//        items2 = new ArrayList<>();
+//        items3 = new ArrayList<>();
 
-    bindWidgetWithEvent();
+        for (int j = 0; j < 7; j++) {
+            items[j] = new ArrayList<>();
+            for (int i = 1; i < 25; i++) {
+                items[j].add(new Product((j + 1) + "Name" + i, "1Description" + i, String.valueOf(i)));
+
+            }
+        }
+
+        bindWidgetWithEvent();
 
 
-    tabLayout.addTab(tabLayout.newTab().setText("ONE"), true);
-    tabLayout.addTab(tabLayout.newTab().setText("TWO"));
-    tabLayout.addTab(tabLayout.newTab().setText("THREE"));
-    tabLayout.addTab(tabLayout.newTab().setText("FOUR"));
-    tabLayout.addTab(tabLayout.newTab().setText("FIVE"));
-    tabLayout.addTab(tabLayout.newTab().setText("SIX"));
-    tabLayout.addTab(tabLayout.newTab().setText("SEVEN"));
+        tabLayout.addTab(tabLayout.newTab().setText("ONE"), true);
+        tabLayout.addTab(tabLayout.newTab().setText("TWO"));
+        tabLayout.addTab(tabLayout.newTab().setText("THREE"));
+        tabLayout.addTab(tabLayout.newTab().setText("FOUR"));
+        tabLayout.addTab(tabLayout.newTab().setText("FIVE"));
 
-
-}
+    }
 
     private void bindWidgetWithEvent() {
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -101,40 +121,46 @@ public class MainActivity extends AppCompatActivity
 
 
     private void setCurrentCategory(int tabPosition) {
+
+        if (adapter != null) {
+            adapter.clear();
+        }
         switch (tabPosition) {
             case 0:
-                Category = "cat1";
-
+                Category = "cate1";
+                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
                 break;
             case 1:
                 Category = "cate2";
+                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
+
                 break;
             case 2:
                 Category = "cate3";
+                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
+
                 break;
             case 3:
                 Category = "cate4";
+                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
+
                 break;
             case 4:
                 Category = "cate5";
-                break;
-            case 5:
-                Category = "cate6";
-                break;
-            case 6:
-                Category = "cate7";
-                break;
-            case 7:
-                Category = "cate8";
+                adapter = new MyListViewAdapter(MainActivity .this, items[tabPosition]);
+
                 break;
 
         }
 
+        //passing items for list view to adapter then to listview
+        productListView.setAdapter(adapter);
+
+//        textView1.setText(Category);
+        //populating main view
 
 
-        textView1.setText(Category);
     }
-
 
 
     @Override
@@ -177,7 +203,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-            FragmentManager fm= getSupportFragmentManager();
+            FragmentManager fm = getSupportFragmentManager();
 
             Contact_Us_Activity dFragment = new Contact_Us_Activity();
             // Show DialogFragment
@@ -192,7 +218,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-            FragmentManager fm= getSupportFragmentManager();
+            FragmentManager fm = getSupportFragmentManager();
 
             Contact_Us_Activity dFragment = new Contact_Us_Activity();
             // Show DialogFragment
