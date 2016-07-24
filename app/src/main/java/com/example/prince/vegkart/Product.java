@@ -8,7 +8,7 @@ public class Product {
 
 
 
-    public String productName;
+    public String proName;
     public String description;
     public String price;
     public String quantity;
@@ -23,33 +23,24 @@ public class Product {
 
     public Product(String _productName, String _discription, String _price)
     {
-        this.productName = _productName;
+        this.proName = _productName;
         this.description = _discription;
         this.price = _price;
         this.quantity = "0";
 
     }
 
-    //function to fetch all data
-    /*public TableQuery<Product> FetchAllData()
-    {
-        var db = bl.openConnection();
-        var table = db.Table<Product>();
-        return table;
+    public void setProname(String proname) {
+        this.proName = proname;
     }
 
-    public string insertRecord()
-    {
-        try
-        {
-            var db = bl.openConnection();
-            bl.creatDB();
-            bl.createTable();
-            db.Insert(this);
-            return "record added";
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
-        }
-        catch (Exception e) { return "error "; }
-    }*/
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }
 

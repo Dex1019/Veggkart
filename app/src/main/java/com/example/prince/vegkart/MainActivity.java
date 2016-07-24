@@ -1,26 +1,30 @@
 package com.example.prince.vegkart;
 
 import android.content.ClipData;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
-import android.view.ViewDebug;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +32,17 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Toolbar toolbar1;
+    public static final String JSON_URL = "http://192.168.20.1:99/vksite/api/crud_api.php";
+
+    private JSONParse pj;
+
+//    private Toolbar toolbar1;
     private TabLayout tabLayout;
     private String Category;
-    private TextView textView1;
-    private Button frag_button;
-    private ClipData.Item item;
-    private List<Product> items2, items3;
+//    private TextView textView1;
+//    private Button frag_button;
+//    private ClipData.Item item;
+//    private List<Product> items2, items3;
     private List<Product>[] items = new ArrayList[7];
     private ListView productListView;
     private MyListViewAdapter adapter;
@@ -44,9 +52,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        try {
+            setContentView(R.layout.activity_main);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
 
 /*
         frag_button = (Button) findViewById(R.id.frag_button);
@@ -58,47 +67,88 @@ public class MainActivity extends AppCompatActivity
             }
         });
 */
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, cart_activity.class));
-            }
-        });
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(MainActivity.this, cart_activity.class));
+                }
+            });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
 
 //        textView1 = (TextView) findViewById(R.id.textView1);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        productListView = (ListView) findViewById(R.id.mainListView);
+            tabLayout = (TabLayout) findViewById(R.id.tabs);
+            productListView = (ListView) findViewById(R.id.mainListView);
 //        items2 = new ArrayList<>();
 //        items3 = new ArrayList<>();
 
-        for (int j = 0; j < 7; j++) {
-            items[j] = new ArrayList<>();
-            for (int i = 1; i < 25; i++) {
-                items[j].add(new Product((j + 1) + "Name" + i, "1Description" + i, String.valueOf(i)));
+            for (int j = 0; j < 7; j++) {
+                items[j] = new ArrayList<>();
+                for (int i = 1; i < 25; i++) {
+                    items[j].add(new Product((j + 1) + "Name" + i, "1Description" + i, String.valueOf(i)));
 
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        bindWidgetWithEvent();
+    }
 
+    /*
+* This Method sendRequest(), makes a request queue using volley.
+* */
+    private void sendRequest() {
 
-        tabLayout.addTab(tabLayout.newTab().setText("ONE"), true);
-        tabLayout.addTab(tabLayout.newTab().setText("TWO"));
-        tabLayout.addTab(tabLayout.newTab().setText("THREE"));
-        tabLayout.addTab(tabLayout.newTab().setText("FOUR"));
-        tabLayout.addTab(tabLayout.newTab().setText("FIVE"));
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+            StringRequest stringRequest = new StringRequest(0,JSON_URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d("TAG", response);
+                            showJSON(response);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("Error",error.toString());
+                            Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+            );
+
+            requestQueue.add(stringRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+* This method parses data from jason object to listView using custom adapter.
+* */
+    private void showJSON(String json) {
+        try {
+            pj = new JSONParse(json);
+            pj.parseJson();
+
+//            productListView.setAdapter(cl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
+
 
     private void bindWidgetWithEvent() {
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -128,7 +178,8 @@ public class MainActivity extends AppCompatActivity
         switch (tabPosition) {
             case 0:
                 Category = "cate1";
-                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
+                adapter = new MyListViewAdapter(MainActivity.this, JSONParse.productObj);
+
                 break;
             case 1:
                 Category = "cate2";
@@ -147,7 +198,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case 4:
                 Category = "cate5";
-                adapter = new MyListViewAdapter(MainActivity .this, items[tabPosition]);
+                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
 
                 break;
 
@@ -230,4 +281,26 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        try {
+
+            Log.d("Test","here it id!!");
+
+            sendRequest();
+
+            bindWidgetWithEvent();
+            tabLayout.addTab(tabLayout.newTab().setText("ONE"), true);
+            tabLayout.addTab(tabLayout.newTab().setText("TWO"));
+            tabLayout.addTab(tabLayout.newTab().setText("THREE"));
+            tabLayout.addTab(tabLayout.newTab().setText("FOUR"));
+            tabLayout.addTab(tabLayout.newTab().setText("FIVE"));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 }

@@ -141,7 +141,7 @@ public class MyListViewAdapter extends ArrayAdapter<Product> {
 
         //this function binds Prduct class variables to viewHolder variables
         public void bind(Context context, List<Product> item, int position) {
-            this.txtPName.setText(item.get(position).productName);
+            this.txtPName.setText(item.get(position).proName);
             this.txtDescription.setText(item.get(position).description);
             this.txtPrice.setText(item.get(position).price);
             this.numPick.setTag(position);
