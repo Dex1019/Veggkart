@@ -29,18 +29,19 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String JSON_URL = "http://anas.netau.net/api/crud_api.php";
-
+    public static final String JSON_URL = "http://192.168.20.1:99/vksite/api/crud_api.php";
+    FragmentManager fm = getSupportFragmentManager();
     private JSONParse pj;
-
+//    private Toolbar toolbar1;
     private TabLayout tabLayout;
     private String Category;
+//    private TextView textView1;
+//    private Button frag_button;
+//    private ClipData.Item item;
+//    private List<Product> items2, items3;
     private List<Product>[] items = new ArrayList[7];
     private ListView productListView;
-    private MyListViewAdapter adapter, tAdapter;
-    //private RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-    FragmentManager fm = getSupportFragmentManager();
+    private MyListViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,13 +135,10 @@ public class MainActivity extends AppCompatActivity
         try {
             pj = new JSONParse(json);
             pj.parseJson();
-            tAdapter=new MyListViewAdapter(MainActivity.this, JSONParse.productObj);
-
 //            productListView.setAdapter(cl);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -158,57 +156,48 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
             }
-
-
         });
     }
 
 
     private void setCurrentCategory(int tabPosition) {
 
-        try {
+        if (adapter != null) {
+            adapter.clear();
+        }
+        switch (tabPosition) {
+            case 0:
+                Category = "cate1";
+                adapter = new MyListViewAdapter(MainActivity.this, JSONParse.productObj);
 
+                break;
+            case 1:
+                Category = "cate2";
+                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
 
-            if (adapter != null) {
-                adapter.clear();
-            }
-            switch (tabPosition) {
-                case 0:
-                    Category = "cate1";
-                    adapter = tAdapter;
+                break;
+            case 2:
+                Category = "cate3";
+                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
 
-                    break;
-                case 1:
-                    Category = "cate2";
-                    adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
+                break;
+            case 3:
+                Category = "cate4";
+                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
 
-                    break;
-                case 2:
-                    Category = "cate3";
-                    adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
+                break;
+            case 4:
+                Category = "cate5";
+                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
 
-                    break;
-                case 3:
-                    Category = "cate4";
-                    adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
+                break;
+        }
 
-                    break;
-                case 4:
-                    Category = "cate5";
-                    adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
-
-                    break;
-
-            }
-
-            //passing items for list view to adapter then to listview
-            productListView.setAdapter(adapter);
+        //passing items for list view to adapter then to listview
+        productListView.setAdapter(adapter);
 
 //        textView1.setText(Category);
-            //populating main view
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        //populating main view
 
 
     }
@@ -287,7 +276,7 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
         try {
 
-//            Log.d("Test","here it is!!");
+            Log.d("Test","here it id!!");
 
             sendRequest();
 
@@ -300,7 +289,6 @@ public class MainActivity extends AppCompatActivity
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
 }

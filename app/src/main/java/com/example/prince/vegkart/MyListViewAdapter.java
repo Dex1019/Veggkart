@@ -1,14 +1,11 @@
 package com.example.prince.vegkart;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -18,15 +15,15 @@ import java.util.List;
  * Created by aniPC on 16-Jun-16.
  */
 public class MyListViewAdapter extends ArrayAdapter<Product> {
-    private List<Product> item;
-    private Context context1;
-    private MyViewHolder vhold;
     public static int count = 0;
+    private List<Product> item;
+    private Context context;
+    private MyViewHolder viewHolder;
 
-    public MyListViewAdapter(Context _context, List<Product> _item) {
-        super(_context, R.layout.activity_main);
-        this.item = _item;
-        this.context1 = _context;
+    public MyListViewAdapter(Context context, List<Product> items) {
+        super(context, R.layout.activity_main);
+        this.item = items;
+        this.context = context;
     }
 
 
@@ -83,16 +80,16 @@ public class MyListViewAdapter extends ArrayAdapter<Product> {
 
             if (row == null) {
 
-                row = LayoutInflater.from(context1).inflate(R.layout.listview_row, null, false);
-                vhold = new MyViewHolder();
-                vhold.initialize(row); //MyViewHolder class function; devDefined
-                row.setTag(vhold);
+                row = LayoutInflater.from(context).inflate(R.layout.listview_row, null, false);
+                viewHolder = new MyViewHolder();
+                viewHolder.initialize(row); //MyViewHolder class function; devDefined
+                row.setTag(viewHolder);
 
             } else {
-                vhold = (MyViewHolder) row.getTag();
+                viewHolder = (MyViewHolder) row.getTag();
             }
 
-            vhold.bind(context1, item, position);//MyViewHolder class function; devDefined
+            viewHolder.bind(context, item, position);//MyViewHolder class function; devDefined
 
             return row;
 
@@ -132,7 +129,7 @@ public class MyListViewAdapter extends ArrayAdapter<Product> {
                 @Override
                 public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                     int pos = (int) (picker).getTag();
-                    item.get(pos).quantity = String.valueOf((picker).getValue());
+                    item.get(pos).setQuantity(String.valueOf((picker).getValue()));
                 }
             });
 
@@ -141,11 +138,11 @@ public class MyListViewAdapter extends ArrayAdapter<Product> {
 
         //this function binds Prduct class variables to viewHolder variables
         public void bind(Context context, List<Product> item, int position) {
-            this.txtPName.setText(item.get(position).proName);
-            this.txtDescription.setText(item.get(position).description);
-            this.txtPrice.setText(item.get(position).price);
+            this.txtPName.setText(item.get(position).getProductName());
+            this.txtDescription.setText(item.get(position).getDescription());
+            this.txtPrice.setText(item.get(position).getPrice());
             this.numPick.setTag(position);
-            this.numPick.setValue(Integer.parseInt(item.get(position).quantity));
+            this.numPick.setValue(Integer.parseInt(item.get(position).getQuantity()));
         }
 
     }
