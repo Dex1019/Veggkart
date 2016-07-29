@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     private String Category;
     private List<Product>[] items = new ArrayList[7];
     private ListView productListView;
-    private MyListViewAdapter adapter;
+    private MyListViewAdapter adapter, tAdapter;
     //private RequestQueue requestQueue = Volley.newRequestQueue(this);
 
     FragmentManager fm = getSupportFragmentManager();
@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity
         try {
             pj = new JSONParse(json);
             pj.parseJson();
+            tAdapter=new MyListViewAdapter(MainActivity.this, JSONParse.productObj);
 
 //            productListView.setAdapter(cl);
         } catch (Exception e) {
@@ -174,7 +175,7 @@ public class MainActivity extends AppCompatActivity
             switch (tabPosition) {
                 case 0:
                     Category = "cate1";
-                    adapter = new MyListViewAdapter(MainActivity.this, JSONParse.productObj);
+                    adapter = tAdapter;
 
                     break;
                 case 1:
