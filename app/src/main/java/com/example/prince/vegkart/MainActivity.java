@@ -1,6 +1,5 @@
 package com.example.prince.vegkart;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,9 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -32,20 +29,16 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String JSON_URL = "http://192.168.20.1:99/vksite/api/crud_api.php";
+    public static final String JSON_URL = "http://anas.netau.net/api/crud.php";
 
     private JSONParse pj;
 
-//    private Toolbar toolbar1;
     private TabLayout tabLayout;
     private String Category;
-//    private TextView textView1;
-//    private Button frag_button;
-//    private ClipData.Item item;
-//    private List<Product> items2, items3;
     private List<Product>[] items = new ArrayList[7];
     private ListView productListView;
     private MyListViewAdapter adapter;
+    //private RequestQueue requestQueue = Volley.newRequestQueue(this);
 
     FragmentManager fm = getSupportFragmentManager();
 
@@ -172,43 +165,49 @@ public class MainActivity extends AppCompatActivity
 
     private void setCurrentCategory(int tabPosition) {
 
-        if (adapter != null) {
-            adapter.clear();
-        }
-        switch (tabPosition) {
-            case 0:
-                Category = "cate1";
-                adapter = new MyListViewAdapter(MainActivity.this, JSONParse.productObj);
+        try {
 
-                break;
-            case 1:
-                Category = "cate2";
-                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
 
-                break;
-            case 2:
-                Category = "cate3";
-                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
+            if (adapter != null) {
+                adapter.clear();
+            }
+            switch (tabPosition) {
+                case 0:
+                    Category = "cate1";
+                    adapter = new MyListViewAdapter(MainActivity.this, JSONParse.productObj);
 
-                break;
-            case 3:
-                Category = "cate4";
-                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
+                    break;
+                case 1:
+                    Category = "cate2";
+                    adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
 
-                break;
-            case 4:
-                Category = "cate5";
-                adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
+                    break;
+                case 2:
+                    Category = "cate3";
+                    adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
 
-                break;
+                    break;
+                case 3:
+                    Category = "cate4";
+                    adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
 
-        }
+                    break;
+                case 4:
+                    Category = "cate5";
+                    adapter = new MyListViewAdapter(MainActivity.this, items[tabPosition]);
 
-        //passing items for list view to adapter then to listview
-        productListView.setAdapter(adapter);
+                    break;
+
+            }
+
+            //passing items for list view to adapter then to listview
+            productListView.setAdapter(adapter);
 
 //        textView1.setText(Category);
-        //populating main view
+            //populating main view
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
 
     }
