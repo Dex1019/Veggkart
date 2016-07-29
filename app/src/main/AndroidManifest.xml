@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.prince.vegkart">
+<manifest package="com.example.prince.vegkart"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -24,34 +24,32 @@
         <activity
             android:name=".cart_activity"
             android:label="@string/Cart">
+            <intent-filter>
+                <action android:name="com.example.prince.vegkart.cart_activity" />
 
+                <category android:name="android.intent.category.Default" />
+            </intent-filter>
+        </activity>
 
-        <intent-filter>
-            <action android:name="com.example.prince.vegkart.cart_activity" />
+        <activity
+            android:name=".Delivery_Activity"
+            android:label="@string/Delivery_Address"
+            android:parentActivityName=".cart_activity">
+            <intent-filter>
+                <action android:name="com.example.prince.vegkart.Delivery_Activity" />
 
-            <category android:name="android.intent.category.Default" />
-        </intent-filter>
-    </activity>
+                <category android:name="android.intent.category.Default" />
+            </intent-filter>
+        </activity>
+        <!--<activity-->
+        <!--android:name=".Contact_Us_Activity"-->
+        <!--android:label="@string/Contact_us">-->
 
-    <activity
-        android:name=".Delivery_Activity"
-        android:label="@string/Delivery_Address"
-        android:parentActivityName=".cart_activity">
+        <!--<intent-filter>-->
+        <!--<action android:name="com.example.prince.vegkart.contact_us_Activity" />-->
 
-        <intent-filter>
-            <action android:name="com.example.prince.vegkart.Delivery_Activity" />
-
-            <category android:name="android.intent.category.Default" />
-        </intent-filter>
-    </activity>
-    <activity
-        android:name=".Contact_Us_Activity"
-        android:label="@string/Contact_us">
-
-        <intent-filter>
-            <action android:name="com.example.prince.vegkart.contact_us_Activity" />
-
-            <category android:name="android.intent.category.Default" />
-        </intent-filter>
-    </activity>
-</application></manifest>
+        <!--<category android:name="android.intent.category.Default" />-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
+    </application>
+</manifest>

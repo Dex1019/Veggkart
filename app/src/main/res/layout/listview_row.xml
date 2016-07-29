@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<LinearLayout android:id="@+id/linearLayoutX1"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:id="@+id/linearLayoutX1"
-    android:divider="#D2D2D2">
+    android:divider="#D2D2D2"
+    android:orientation="horizontal">
     <ImageView
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="30"
         android:id="@+id/imageProduct1"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="30"
         android:minHeight="10dp"
         android:minWidth="10dp"
-        android:layout_gravity="center" />
+        android:src="@android:drawable/ic_menu_gallery" />
     <LinearLayout
-        android:orientation="vertical"
-        android:minWidth="10px"
-        android:minHeight="10px"
-        android:layout_weight="60"
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/linearLayout1"
+        android:layout_weight="60"
+        android:minHeight="10px"
+        android:minWidth="10px"
+        android:orientation="vertical"
         android:paddingLeft="5dp"
         android:paddingRight="5dp">
         <TextView
-            android:text="Text1"
-            android:gravity="left"
             android:id="@+id/textViewX1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="80"
-            android:textStyle="bold"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <TextView
-            android:text="Text2"
             android:gravity="left"
+            android:text="Text1"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+        <TextView
             android:id="@+id/textViewX2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="80" />
+            android:layout_weight="80"
+            android:gravity="left"
+            android:text="Text2" />
         <TextView
-            android:text="Text3"
-            android:gravity="right"
             android:id="@+id/textViewX3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="80"
-            android:textStyle="italic"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:gravity="right"
+            android:text="Text3"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="italic" />
     </LinearLayout>
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="10"
-        android:id="@+id/linearLayout2"
+        android:minHeight="25px"
         android:minWidth="25px"
-        android:minHeight="25px">
+        android:orientation="vertical">
         <NumberPicker
+            android:id="@+id/numPicker"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/numPicker"
-            android:saveEnabled="true"
+            android:minHeight="10dp"
             android:minWidth="10dp"
-            android:minHeight="10dp" />
+            android:saveEnabled="true" />
     </LinearLayout>
 </LinearLayout>
