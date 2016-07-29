@@ -29,7 +29,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String JSON_URL = "http://anas.netau.net/api/crud.php";
+    public static final String JSON_URL = "http://anas.netau.net/api/crud_api.php";
 
     private JSONParse pj;
 
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
         try {
 
-            Log.d("Test","here it id!!");
+//            Log.d("Test","here it is!!");
 
             sendRequest();
 
