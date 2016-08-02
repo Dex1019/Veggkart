@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.0"
 
     defaultConfig {
-        applicationId "com.example.prince.vegkart"
+        applicationId "com.veggkart.android"
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
