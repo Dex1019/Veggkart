@@ -1,4 +1,4 @@
-package com.example.prince.vegkart;
+package com.veggkart.android.util;
 
 import android.content.Context;
 
@@ -8,7 +8,7 @@ import com.android.volley.toolbox.Volley;
 
 /**
  * Creator: vbarad
- * Date: 2016-07-30
+ * Date: 2016-08-02
  * Project: veggkart
  */
 public class VolleySingleton {
