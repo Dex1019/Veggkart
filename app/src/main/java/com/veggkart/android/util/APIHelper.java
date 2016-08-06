@@ -8,8 +8,13 @@ package com.veggkart.android.util;
 public class APIHelper {
   private static final String baseUrl = "http://nullsquad.in";
   private static final String endpointProducts = "/api/crud_api.php";
+  private static final String endpointPlaceOrder = "/api/postTest.php";
 
   public static String getEndpointProducts() {
     return APIHelper.baseUrl + APIHelper.endpointProducts;
+  }
+
+  public static String getEndpointPlaceOrder() {
+    return APIHelper.baseUrl + APIHelper.endpointPlaceOrder;
   }
 }
