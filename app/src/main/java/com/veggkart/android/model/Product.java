@@ -28,6 +28,8 @@ public class Product {
   @Expose
   @SerializedName("photo")
   private String photoUrl;
+  @SerializedName("quantity")
+  private int quantity;
 
   public Product(String id, String name, String category, String price, String stock, String photoUrl) {
     this.id = id;
@@ -36,6 +38,7 @@ public class Product {
     this.price = price;
     this.stock = stock;
     this.photoUrl = photoUrl;
+    this.quantity = 0;
   }
 
   public static Product getInstance(String productJson) {
@@ -96,5 +99,27 @@ public class Product {
 
   public void setPhotoUrl(String photoUrl) {
     this.photoUrl = photoUrl;
+  }
+
+  public int getQuantity() {
+    return quantity;
+  }
+
+  public void setQuantity(int quantity) {
+    if (quantity < 0) {
+      this.quantity = 0;
+    } else {
+      this.quantity = quantity;
+    }
+  }
+
+  public void incrementQuantity() {
+    this.quantity++;
+  }
+
+  public void decrementQuantity() {
+    if (this.quantity > 0) {
+      this.quantity--;
+    }
   }
 }
