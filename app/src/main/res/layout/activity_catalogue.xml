@@ -97,7 +97,7 @@
             android:layout_width="75dp"
             android:layout_height="match_parent"
             android:clickable="true"
-            android:src="@drawable/ic_shopping_cart_white_24dp" />
+            android:src="@drawable/ic_shopping_cart_black_24dp" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/textView_catalogue_orderTotal"
@@ -120,7 +120,7 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:clickable="true"
-            android:src="@drawable/ic_checkout_white_24px" />
+            android:src="@drawable/ic_checkout_black_24px" />
 
     </android.support.v7.widget.LinearLayoutCompat>
 
