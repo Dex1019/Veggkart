@@ -1,7 +1,3 @@
 <resources>
-    <string name="app_name">VeggKart</string>
-
-    <!-- API -->
-    <string name="API_BASE_URL">http://192.168.1.113:99</string>
-    <string name="API_JSON_URL">/vksite/api/crud_api.php</string>
+    <string name="app_name">VegGKart</string>
 </resources>
