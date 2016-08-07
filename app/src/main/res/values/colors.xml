@@ -6,4 +6,5 @@
     <color name="inactiveTabTextColor">#ffe0e0e0</color>
     <color name="activeTabTextColor">#ffffffff</color>
     <color name="buttonBackgroundColor">#ff5c6bc0</color>
+    <color name="viewSeparator">#ff424242</color>
 </resources>

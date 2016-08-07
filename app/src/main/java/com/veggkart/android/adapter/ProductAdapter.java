@@ -50,7 +50,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         .placeholder(R.drawable.ic_cloud_download_black_24dp)
         .error(R.drawable.ic_cloud_off_black_24dp)
         .into(holder.imageViewProductImage);
-    holder.textViewRate.setText(holder.textViewRate.getContext().getResources().getString(R.string.product_rate, Double.parseDouble(this.products.get(position).getPrice())));
+    holder.textViewRate.setText(holder.textViewRate.getContext().getResources().getString(R.string.price, Double.parseDouble(this.products.get(position).getPrice())));
     holder.textViewName.setText(this.products.get(position).getName());
     holder.editTextQuantity.setText(String.valueOf(this.products.get(position).getQuantity()));
   }

@@ -83,6 +83,7 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
         break;
       case R.id.imageButton_catalogue_checkout:
         //ToDo: Implement Checkout page
+        CheckoutActivity.launchActivity(this, this.categoryAdapter.getCheckoutProducts());
         break;
     }
   }

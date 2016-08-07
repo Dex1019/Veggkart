@@ -1,4 +1,4 @@
-package com.example.prince.vegkart;
+package com.veggkart.android;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

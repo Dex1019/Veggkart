@@ -127,4 +127,18 @@ public class CategoryAdapter extends FragmentPagerAdapter {
   public ArrayMap<String, ArrayList<Product>> getCategorizedProducts() {
     return this.products;
   }
+
+  public ArrayList<Product> getCheckoutProducts() {
+    ArrayList<Product> checkoutProducts = new ArrayList<>();
+    for (int i = 0; i < this.categories.size(); i++) {
+      ArrayList<Product> temp = this.products.get(this.categories.get(i));
+      for (int j = 0; j < temp.size(); j++) {
+        Product tempProduct = temp.get(j);
+        if (tempProduct.getQuantity() > 0) {
+          checkoutProducts.add(tempProduct);
+        }
+      }
+    }
+    return checkoutProducts;
+  }
 }
