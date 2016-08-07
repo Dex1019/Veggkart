@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 /**
@@ -111,5 +112,17 @@ public class Helper {
     }
 
     return isConnected;
+  }
+
+  public static int convertDpToPx(Context context, int dp) {
+    DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+    int px = Math.round(dp * (metrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    return px;
+  }
+
+  public static int convertPxToDp(Context context, int px) {
+    DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+    int dp = Math.round(px / (metrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    return dp;
   }
 }

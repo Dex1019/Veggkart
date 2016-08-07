@@ -5,7 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.ArrayMap;
 
-import com.veggkart.android.activity.CatalogueActivity;
+import com.veggkart.android.eventlistener.OnAdapterInteractionListener;
+import com.veggkart.android.fragment.ProductsListFragment;
 import com.veggkart.android.model.Product;
 
 import java.util.ArrayList;
@@ -20,12 +21,12 @@ import java.util.Comparator;
 public class CategoryAdapter extends FragmentPagerAdapter {
   private ArrayMap<String, ArrayList<Product>> products;
   private ArrayList<String> categories;
-  private CatalogueActivity activity;
+  private OnAdapterInteractionListener adapterInteractionListener;
 
   private double orderTotalPrice;
   private int numberOfProducts;
 
-  public CategoryAdapter(FragmentManager fragmentManager, ArrayList<Product> products, CatalogueActivity activity) {
+  public CategoryAdapter(FragmentManager fragmentManager, ArrayList<Product> products, OnAdapterInteractionListener adapterInteractionListener) {
     super(fragmentManager);
 
     this.sortAndCategorizeProducts(products);
@@ -33,7 +34,7 @@ public class CategoryAdapter extends FragmentPagerAdapter {
     this.orderTotalPrice = 0.0;
     this.numberOfProducts = 0;
 
-    this.activity = activity;
+    this.adapterInteractionListener = adapterInteractionListener;
   }
 
   private void sortAndCategorizeProducts(ArrayList<Product> products) {
@@ -50,7 +51,10 @@ public class CategoryAdapter extends FragmentPagerAdapter {
       if (!this.products.containsKey(products.get(i).getCategory())) {
         this.products.put(products.get(i).getCategory(), new ArrayList<Product>());
       }
-      this.products.get(products.get(i).getCategory()).add(products.get(i));
+      //ToDo: Get the price "VARIABLE" fixed
+      if (!products.get(i).getId().equals("81")) {
+        this.products.get(products.get(i).getCategory()).add(products.get(i));
+      }
     }
 
     this.categories = new ArrayList<>();
@@ -60,8 +64,7 @@ public class CategoryAdapter extends FragmentPagerAdapter {
 
   @Override
   public Fragment getItem(int position) {
-    //ToDo: Set fragment here
-    return null;
+    return ProductsListFragment.newInstance(this, this.categories.get(position));
   }
 
   @Override
@@ -99,7 +102,7 @@ public class CategoryAdapter extends FragmentPagerAdapter {
 
     this.orderTotalPrice += price;
 
-    this.activity.onAdapterInteraction(this.getOrderTotalPrice(), this.getNumberOfProducts());
+    this.adapterInteractionListener.onAdapterInteraction(this.getOrderTotalPrice(), this.getNumberOfProducts());
   }
 
   public double getOrderTotalPrice() {
@@ -108,5 +111,20 @@ public class CategoryAdapter extends FragmentPagerAdapter {
 
   public int getNumberOfProducts() {
     return numberOfProducts;
+  }
+
+  public ArrayList<Product> getProducts(String category) {
+    ArrayList<Product> products;
+    if (this.products.containsKey(category)) {
+      products = this.products.get(category);
+    } else {
+      products = null;
+    }
+
+    return products;
+  }
+
+  public ArrayMap<String, ArrayList<Product>> getCategorizedProducts() {
+    return this.products;
   }
 }

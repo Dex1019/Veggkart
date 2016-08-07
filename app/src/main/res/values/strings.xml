@@ -2,6 +2,7 @@
     <string name="app_name">VegGKart</string>
 
     <string name="order_total">\u20b9 %1$.2f\n%2$d products</string>
+    <string name="product_rate">\u20b9 %1$.2f</string>
 
     <string name="currency_inr">\u20b9</string>
 </resources>

@@ -17,4 +17,8 @@ public class APIHelper {
   public static String getEndpointPlaceOrder() {
     return APIHelper.baseUrl + APIHelper.endpointPlaceOrder;
   }
+
+  public static String getProductImageUrl(String imageUrlStub) {
+    return APIHelper.baseUrl + imageUrlStub;
+  }
 }
