@@ -2,23 +2,30 @@ package com.veggkart.android.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.veggkart.android.R;
 import com.veggkart.android.adapter.CartAdapter;
 import com.veggkart.android.model.Product;
+import com.veggkart.android.util.APIHelper;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener {
+public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
   private static final String PRODUCTS = "products";
 
   private RecyclerView cartRecyclerView;
@@ -66,7 +73,28 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
   @Override
   public void onClick(View view) {
-    Toast.makeText(this, "Order placed", Toast.LENGTH_LONG).show();
-    //ToDo: Call API to place order
+    APIHelper.placeOrder(this.products, this, this, this);
+  }
+
+  @Override
+  public void onResponse(JSONObject response) {
+    try {
+      int status = response.getInt("success");
+      if (status == 11) {
+        Snackbar.make(this.cartRecyclerView, "Order placed successfully", Snackbar.LENGTH_LONG).show();
+        this.onBackPressed();
+      } else {
+        this.onErrorResponse(new VolleyError("Server error"));
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+      this.onErrorResponse(new VolleyError("Corrupt response"));
+    }
+  }
+
+  @Override
+  public void onErrorResponse(VolleyError error) {
+    Snackbar.make(this.cartRecyclerView, "Error placing order", Snackbar.LENGTH_LONG).show();
+    Log.e("Order placement", error.getMessage());
   }
 }
