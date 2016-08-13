@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:foregroundGravity="center"
-            android:src="@drawable/ic_cloud_off_black_24dp" />
+            app:srcCompat="@drawable/ic_cloud_off_black_24dp" />
 
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
@@ -97,7 +97,7 @@
             android:layout_width="75dp"
             android:layout_height="match_parent"
             android:clickable="true"
-            android:src="@drawable/ic_shopping_cart_black_24dp" />
+            app:srcCompat="@drawable/ic_shopping_cart_black_24dp" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/textView_catalogue_orderTotal"
@@ -120,7 +120,7 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:clickable="true"
-            android:src="@drawable/ic_checkout_black_24px" />
+            app:srcCompat="@drawable/ic_checkout_black_24px" />
 
     </android.support.v7.widget.LinearLayoutCompat>
 

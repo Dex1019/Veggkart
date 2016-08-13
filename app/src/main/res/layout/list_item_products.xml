@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp"
@@ -62,7 +63,7 @@
                 android:id="@+id/imageButton_products_decrement"
                 android:layout_width="74dp"
                 android:layout_height="75dp"
-                android:src="@drawable/ic_remove_black_24dp" />
+                app:srcCompat="@drawable/ic_remove_black_24dp" />
 
             <android.support.v4.widget.Space
                 android:layout_width="2dp"
@@ -72,7 +73,7 @@
                 android:id="@+id/imageButton_products_increment"
                 android:layout_width="74dp"
                 android:layout_height="75dp"
-                android:src="@drawable/ic_add_black_24dp" />
+                app:srcCompat="@drawable/ic_add_black_24dp" />
         </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v7.widget.LinearLayoutCompat>
 

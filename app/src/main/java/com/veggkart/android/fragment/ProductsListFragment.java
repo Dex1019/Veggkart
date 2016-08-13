@@ -3,6 +3,7 @@ package com.veggkart.android.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,12 +26,14 @@ import java.util.ArrayList;
 public class ProductsListFragment extends Fragment implements ItemUpdateListener {
   private static final String CATEGORY = "category";
 
+  static {
+    AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+  }
+
   private String category;
   private CategoryAdapter categoryAdapter;
   private ArrayList<Product> products;
-
   private View rootView;
-
   private RecyclerView recyclerViewProducts;
   private ProductAdapter productAdapter;
 

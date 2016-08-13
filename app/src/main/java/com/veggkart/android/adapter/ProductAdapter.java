@@ -1,5 +1,7 @@
 package com.veggkart.android.adapter;
 
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
@@ -42,12 +44,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
+    Drawable placeHolderDrawable = ResourcesCompat.getDrawable(holder.imageViewProductImage.getResources(), R.drawable.ic_cloud_download_black_24dp, null);
     Picasso
         .with(holder.imageViewProductImage.getContext())
         .load(APIHelper.getProductImageUrl(this.products.get(position).getPhotoUrl()))
         .fit()
         .centerInside()
-        .placeholder(R.drawable.ic_cloud_download_black_24dp)
+        .placeholder(placeHolderDrawable)
         .error(R.drawable.ic_cloud_off_black_24dp)
         .into(holder.imageViewProductImage);
     holder.textViewRate.setText(holder.textViewRate.getContext().getResources().getString(R.string.price, Double.parseDouble(this.products.get(position).getPrice())));
