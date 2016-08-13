@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">VeggKart</string>
+    <string name="app_name">VegGKart</string>
 
-    <!-- API -->
-    <string name="API_BASE_URL">http://192.168.1.113:99</string>
-    <string name="API_JSON_URL">/vksite/api/crud_api.php</string>
+    <string name="order_total">\u20b9 %1$.2f\n%2$d products</string>
+    <string name="price">\u20b9 %1$.2f</string>
+
+    <string name="currency_inr">\u20b9</string>
 </resources>
