@@ -121,7 +121,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     try {
       String userId = response.getString("key");
 
-      if (userId != null) {
+      if (userId != null && !userId.equals("null")) {
         String username = this.editTextUsername.getText().toString().trim();
 
         UserHelper.storeUserId(userId, this);
