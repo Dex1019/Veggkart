@@ -1,5 +1,6 @@
 package com.veggkart.android.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -36,6 +37,11 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
   private AppCompatImageButton cartButton;
   private AppCompatTextView orderTotalTextView;
   private AppCompatImageButton checkoutButton;
+
+  public static void launchActivity(AppCompatActivity currentActivity) {
+    Intent intent = new Intent(currentActivity, CatalogueActivity.class);
+    currentActivity.startActivity(intent);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

@@ -1,6 +1,7 @@
 package com.veggkart.android.util;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -22,6 +23,7 @@ public class APIHelper {
   private static final String baseUrl = "http://nullsquad.in";
   private static final String endpointProducts = "/api/crud_api.php";
   private static final String endpointPlaceOrder = "/api/upload_1.php";
+  private static final String endpointSignIn = "/api/login_api.php";
 
   public static String getEndpointProducts() {
     return APIHelper.baseUrl + APIHelper.endpointProducts;
@@ -35,11 +37,15 @@ public class APIHelper {
     return APIHelper.baseUrl + imageUrlStub;
   }
 
+  public static String getEndpointSignIn() {
+    return APIHelper.baseUrl + APIHelper.endpointSignIn;
+  }
+
   public static void placeOrder(ArrayList<Product> products, Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
     try {
-      String userName = UserHelper.getUserName();
-      JSONObject tempParameterJson = new JSONObject();
-      tempParameterJson.put("userDetails", new JSONObject("{\"username\":\"" + userName + "\"}"));
+      String userId = UserHelper.getUserId(context);
+      JSONObject tempParameter = new JSONObject();
+      tempParameter.put("userDetails", new JSONObject("{\"userid\":\"" + userId + "\"}"));
       JSONArray productsJson = new JSONArray();
       for (int i = 0; i < products.size(); i++) {
         JSONObject tempProduct = new JSONObject();
@@ -47,14 +53,32 @@ public class APIHelper {
         tempProduct.put("proid", Integer.parseInt(products.get(i).getId()));
         productsJson.put(tempProduct);
       }
-      tempParameterJson.put("orderList", productsJson);
+      tempParameter.put("orderList", productsJson);
       JSONObject parameters = new JSONObject();
-      parameters.put("UArray", tempParameterJson);
+      parameters.put("UArray", tempParameter);
 
       JsonObjectRequest orderProductsRequest = new JsonObjectRequest(Request.Method.POST, APIHelper.getEndpointPlaceOrder(), parameters, responseListener, errorListener);
       VolleySingleton.getInstance(context).addToRequestQueue(orderProductsRequest);
     } catch (JSONException e) {
       e.printStackTrace();
+      Toast.makeText(context, "Some error occurred\nPlease try again after some time", Toast.LENGTH_SHORT).show();
+    }
+  }
+
+  public static void userSignIn(String username, String password, Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+    try {
+      String passwordHash = Helper.stringToMD5Hex(password);
+      JSONObject tempParameter = new JSONObject();
+      tempParameter.put("username", username);
+      tempParameter.put("passHash", passwordHash);
+      JSONObject parameter = new JSONObject();
+      parameter.put("getIn", tempParameter);
+
+      JsonObjectRequest signInRequest = new JsonObjectRequest(Request.Method.POST, APIHelper.getEndpointSignIn(), parameter, responseListener, errorListener);
+      VolleySingleton.getInstance(context).addToRequestQueue(signInRequest);
+    } catch (JSONException e) {
+      e.printStackTrace();
+      Toast.makeText(context, "Some error occurred\nPlease try again after some time", Toast.LENGTH_SHORT).show();
     }
   }
 }

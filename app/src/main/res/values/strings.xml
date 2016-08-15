@@ -5,4 +5,15 @@
     <string name="price">\u20b9 %1$.2f</string>
 
     <string name="currency_inr">\u20b9</string>
+
+    <!-- Buttons -->
+    <string name="button_sign_up">Sign-Up</string>
+    <string name="button_sign_in">Sign-In</string>
+
+    <!-- EditText Hints -->
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+
+    <!-- Texts -->
+    <string name="text_forgot_password">Forgot Password?</string>
 </resources>
