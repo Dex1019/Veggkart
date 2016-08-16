@@ -1,5 +1,6 @@
 package com.veggkart.android.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -37,6 +38,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
   private ArrayList<Product> products;
 
+  private ProgressDialog progressDialog;
+
   public static void launchActivity(AppCompatActivity currentActivity, ArrayList<Product> products) {
     String productsJson = (new Gson()).toJson(products);
     Intent checkoutIntent = new Intent(currentActivity, CheckoutActivity.class);
@@ -73,16 +76,39 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
   @Override
   public void onClick(View view) {
+    int viewId = view.getId();
+
+    switch (viewId) {
+      case R.id.button_checkout_placeOrder:
+        this.placeOrder();
+        break;
+    }
+  }
+
+  private void placeOrder() {
+    if (this.progressDialog != null && this.progressDialog.isShowing()) {
+      this.progressDialog.dismiss();
+    }
+    this.progressDialog = new ProgressDialog(this);
+    this.progressDialog.setIndeterminate(true);
+    this.progressDialog.setTitle("VegGKart");
+    this.progressDialog.setMessage("Placing order...");
+    this.progressDialog.show();
+
     APIHelper.placeOrder(this.products, this, this, this);
   }
 
   @Override
   public void onResponse(JSONObject response) {
+    if (this.progressDialog != null && this.progressDialog.isShowing()) {
+      this.progressDialog.dismiss();
+    }
+
     try {
       int status = response.getInt("success");
       if (status == 11) {
         Snackbar.make(this.cartRecyclerView, "Order placed successfully", Snackbar.LENGTH_LONG).show();
-        this.onBackPressed();
+        CatalogueActivity.launchActivity(this);
       } else {
         this.onErrorResponse(new VolleyError("Server error"));
       }
