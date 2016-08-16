@@ -1,14 +1,25 @@
 <resources>
+    <!-- Titles -->
     <string name="app_name">VegGKart</string>
+    <string name="title_sign_up">Sign-Up</string>
 
     <string name="order_total">\u20b9 %1$.2f\n%2$d products</string>
     <string name="price">\u20b9 %1$.2f</string>
 
     <string name="currency_inr">\u20b9</string>
 
-    <!-- Buttons -->
+    <!-- Labels -->
     <string name="button_sign_up">Sign-Up</string>
     <string name="button_sign_in">Sign-In</string>
+    <string name="label_full_name">Full Name</string>
+    <string name="label_email">Email</string>
+    <string name="label_username">Username</string>
+    <string name="label_password">Password</string>
+    <string name="label_mobile">Mobile Number (excluding +91)</string>
+    <string name="label_address">Postal Address</string>
+    <string name="label_city">City</string>
+    <string name="label_zip">Postal Code</string>
+    <string name="label_state">State</string>
 
     <!-- EditText Hints -->
     <string name="hint_username">Username</string>
@@ -16,4 +27,35 @@
 
     <!-- Texts -->
     <string name="text_forgot_password">Forgot Password?</string>
+
+    <!-- Miscellaneous -->
+    <string-array name="india_states">
+        <item>Andhra Pradesh</item>
+        <item>Arunachal Pradesh</item>
+        <item>Assam</item>
+        <item>Bihar</item>
+        <item>Chhattisgarh</item>
+        <item>Goa</item>
+        <item>Gujarat</item>
+        <item>Haryana</item>
+        <item>Himachal Pradesh</item>
+        <item>Jammu and Kashmir</item>
+        <item>Jharkhand</item>
+        <item>Karnataka</item>
+        <item>Kerala</item>
+        <item>Madhya Pradesh</item>
+        <item>Maharashtra</item>
+        <item>Mizoram</item>
+        <item>Nagaland</item>
+        <item>Odisha</item>
+        <item>Punjab</item>
+        <item>Rajasthan</item>
+        <item>Sikkim</item>
+        <item>Tamil Nadu</item>
+        <item>Telangana</item>
+        <item>Tripura</item>
+        <item>Uttar Pradesh</item>
+        <item>Uttarakhand</item>
+        <item>West Bengal</item>
+    </string-array>
 </resources>

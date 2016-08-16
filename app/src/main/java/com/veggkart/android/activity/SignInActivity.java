@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -18,6 +20,8 @@ import com.veggkart.android.util.UserHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.nio.charset.Charset;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
 
@@ -80,6 +84,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
   private void forgotPassword() {
     //ToDo: Implement actual logic
+    Toast.makeText(SignInActivity.this, "The functionality is yet to come", Toast.LENGTH_SHORT).show();
   }
 
   private void signIn() {
@@ -93,7 +98,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
       this.editTextUsername.setError("Invalid username");
     }
 
-    if (!password.matches("\\S{6,}")) {
+    if (!password.matches("^.{6,}$")) {
       isInputValid = false;
       this.editTextPassword.setError("Invalid password");
     }
@@ -113,7 +118,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
   }
 
   private void signUp() {
-    //ToDo: Implement actual logic
+    SignUpActivity.launchActivity(this);
   }
 
   @Override
@@ -133,9 +138,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         CatalogueActivity.launchActivity(this);
       } else {
-        if (this.progressDialog != null && this.progressDialog.isShowing()) {
-          this.progressDialog.dismiss();
-        }
         this.editTextPassword.setText("");
         this.editTextUsername.setError("Username or password invalid");
       }
@@ -147,6 +149,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
   @Override
   public void onErrorResponse(VolleyError error) {
+    Log.e("SIGN-IN", (new String(error.networkResponse.data, Charset.defaultCharset())));
     Snackbar.make(this.editTextUsername, "Some error occurred\nTry again after some time", Snackbar.LENGTH_LONG).show();
   }
 }
