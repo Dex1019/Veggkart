@@ -1,6 +1,7 @@
 package com.veggkart.android.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -32,6 +33,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
   private AppCompatButton buttonSignUp;
 
   private ProgressDialog progressDialog;
+
+  public static void launchActivity(AppCompatActivity currentActivity) {
+    Intent intent = new Intent(currentActivity, SignInActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    currentActivity.startActivity(intent);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

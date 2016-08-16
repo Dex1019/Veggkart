@@ -1,13 +1,18 @@
 package com.veggkart.android.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.android.volley.Request;
@@ -20,6 +25,7 @@ import com.veggkart.android.adapter.CategoryAdapter;
 import com.veggkart.android.eventlistener.OnAdapterInteractionListener;
 import com.veggkart.android.model.Product;
 import com.veggkart.android.util.APIHelper;
+import com.veggkart.android.util.UserHelper;
 import com.veggkart.android.util.VolleySingleton;
 
 import org.json.JSONException;
@@ -82,6 +88,26 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
   }
 
   @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater menuInflater = this.getMenuInflater();
+    menuInflater.inflate(R.menu.menu_catalogue, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int itemId = item.getItemId();
+
+    switch (itemId) {
+      case R.id.menu_catalogue_signOut:
+        this.signOut();
+        break;
+    }
+
+    return true;
+  }
+
+  @Override
   public void onClick(View view) {
     int viewId = view.getId();
     switch (viewId) {
@@ -120,5 +146,30 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
   @Override
   public void onAdapterInteraction(double orderTotal, int numberOfProducts) {
     this.orderTotalTextView.setText(this.getResources().getString(R.string.order_total, orderTotal, numberOfProducts));
+  }
+
+  private void signOut() {
+    AlertDialog.Builder confirmationDialogBuilder = new AlertDialog.Builder(this);
+    confirmationDialogBuilder.setTitle(R.string.label_sign_out);
+    confirmationDialogBuilder.setMessage("Are you sure you want to sign-out?");
+    confirmationDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialogInterface, int i) {
+        dialogInterface.dismiss();
+        UserHelper.clearUserDetails(CatalogueActivity.this);
+        SignInActivity.launchActivity(CatalogueActivity.this);
+      }
+    });
+    confirmationDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialogInterface, int i) {
+        dialogInterface.dismiss();
+      }
+    });
+    confirmationDialogBuilder.setCancelable(true);
+    confirmationDialogBuilder.setIcon(R.drawable.ic_logout_black);
+
+    AlertDialog confirmationDialog = confirmationDialogBuilder.create();
+    confirmationDialog.show();
   }
 }
