@@ -38,4 +38,12 @@ public class UserHelper {
     String userId = preferences.getString(KEY_USER_ID, null);
     return userId;
   }
+
+  public static void clearUserDetails(Context context) {
+    SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.remove(KEY_USERNAME);
+    editor.remove(KEY_USER_ID);
+    editor.apply();
+  }
 }
