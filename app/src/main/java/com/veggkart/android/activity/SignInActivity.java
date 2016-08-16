@@ -37,24 +37,28 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
   }
 
   private void initialize() {
-    setContentView(R.layout.activity_sign_in);
+    if (UserHelper.getUserId(this) != null) {
+      CatalogueActivity.launchActivity(this);
+    } else {
+      setContentView(R.layout.activity_sign_in);
 
-    ActionBar actionBar = this.getSupportActionBar();
+      ActionBar actionBar = this.getSupportActionBar();
 
-    if (actionBar != null) {
-      actionBar.setDisplayHomeAsUpEnabled(false);
-      actionBar.setTitle(this.getResources().getString(R.string.app_name));
+      if (actionBar != null) {
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setTitle(this.getResources().getString(R.string.app_name));
+      }
+
+      this.editTextUsername = (AppCompatEditText) this.findViewById(R.id.editText_signIn_username);
+      this.editTextPassword = (AppCompatEditText) this.findViewById(R.id.editText_signIn_password);
+      this.textViewForgotPassword = (AppCompatTextView) this.findViewById(R.id.textView_signIn_forgotPassword);
+      this.buttonSignIn = (AppCompatButton) this.findViewById(R.id.button_signIn_signIn);
+      this.buttonSignUp = (AppCompatButton) this.findViewById(R.id.button_signIn_signUp);
+
+      this.textViewForgotPassword.setOnClickListener(this);
+      this.buttonSignIn.setOnClickListener(this);
+      this.buttonSignUp.setOnClickListener(this);
     }
-
-    this.editTextUsername = (AppCompatEditText) this.findViewById(R.id.editText_signIn_username);
-    this.editTextPassword = (AppCompatEditText) this.findViewById(R.id.editText_signIn_password);
-    this.textViewForgotPassword = (AppCompatTextView) this.findViewById(R.id.textView_signIn_forgotPassword);
-    this.buttonSignIn = (AppCompatButton) this.findViewById(R.id.button_signIn_signIn);
-    this.buttonSignUp = (AppCompatButton) this.findViewById(R.id.button_signIn_signUp);
-
-    this.textViewForgotPassword.setOnClickListener(this);
-    this.buttonSignIn.setOnClickListener(this);
-    this.buttonSignUp.setOnClickListener(this);
   }
 
   @Override

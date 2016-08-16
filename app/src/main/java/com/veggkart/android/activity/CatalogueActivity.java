@@ -40,6 +40,7 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
 
   public static void launchActivity(AppCompatActivity currentActivity) {
     Intent intent = new Intent(currentActivity, CatalogueActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
     currentActivity.startActivity(intent);
   }
 
