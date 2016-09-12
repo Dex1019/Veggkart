@@ -80,6 +80,7 @@
         android:id="@+id/button_signIn_signIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/buttonPlus"
         android:gravity="center"
         android:paddingBottom="12dp"
         android:paddingEnd="10dp"
@@ -99,6 +100,7 @@
         android:id="@+id/button_signIn_signUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/buttonMinus"
         android:gravity="center"
         android:paddingBottom="12dp"
         android:paddingEnd="10dp"
@@ -114,10 +116,10 @@
         android:layout_height="56dp" />
     <TextView
         android:id="@+id/button_skip"
-        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:clickable="true"
         android:text="SKIP"
-        android:textSize="20sp"
-        android:layout_gravity="right"/>
+        android:textSize="20sp" />
 </android.support.v7.widget.LinearLayoutCompat>

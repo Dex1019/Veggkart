@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/listBackground"
     android:orientation="vertical"
     android:paddingEnd="5dp"
     android:paddingLeft="5dp"
@@ -13,5 +14,6 @@
         android:id="@+id/recyclerView_products"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/listBackground"
         android:soundEffectsEnabled="true" />
 </android.support.v7.widget.LinearLayoutCompat>

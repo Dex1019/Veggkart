@@ -92,6 +92,7 @@
             android:id="@+id/imageButton_catalogue_cart"
             android:layout_width="75dp"
             android:layout_height="match_parent"
+            android:backgroundTint="@color/buttonMinus"
             android:clickable="true"
             app:srcCompat="@drawable/ic_shopping_cart_black_24dp" />
 
@@ -115,6 +116,7 @@
             android:id="@+id/imageButton_catalogue_checkout"
             android:layout_width="60dp"
             android:layout_height="match_parent"
+            android:backgroundTint="@color/buttonMinus"
             android:clickable="true"
             app:srcCompat="@drawable/ic_checkout_black_24px" />
 
