@@ -109,11 +109,7 @@ public class Helper {
 
     boolean isConnected;
 
-    if ((activeNetwork != null) && activeNetwork.isConnected()) {
-      isConnected = true;
-    } else {
-      isConnected = false;
-    }
+    isConnected = (activeNetwork != null) && activeNetwork.isConnected();
 
     return isConnected;
   }

@@ -109,5 +109,15 @@
         android:text="@string/button_sign_up"
         android:textAllCaps="false"
         android:textSize="25sp" />
-
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="56dp" />
+    <TextView
+        android:id="@+id/button_skip"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SKIP"
+        android:textSize="20sp"
+        android:layout_gravity="right"/>
 </android.support.v7.widget.LinearLayoutCompat>

@@ -7,14 +7,14 @@
     android:orientation="horizontal">
 
     <android.support.v7.widget.LinearLayoutCompat
-        android:layout_width="100dp"
+        android:layout_width="140dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageView_products_product"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="140dp"
+            android:layout_height="120dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true" />
@@ -27,42 +27,45 @@
 
     </android.support.v7.widget.LinearLayoutCompat>
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/textView_products_name"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="start"
-        android:paddingBottom="5dp"
-        android:paddingEnd="2dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:paddingStart="2dp"
-        android:paddingTop="5dp"
-        android:textSize="18sp"
-        tools:text="Varun" />
 
     <android.support.v7.widget.LinearLayoutCompat
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/textView_products_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:paddingBottom="5dp"
+            android:paddingEnd="2dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingStart="2dp"
+            android:paddingTop="5dp"
+            android:textSize="18sp"
+            tools:text="Varun" />
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/editText_products_quantity"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="wrap_content"
             android:digits="0123456789"
             android:inputType="number" />
 
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/imageButton_products_decrement"
-                android:layout_width="74dp"
-                android:layout_height="75dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 app:srcCompat="@drawable/ic_remove_black_24dp" />
 
             <android.support.v4.widget.Space
@@ -71,8 +74,9 @@
 
             <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/imageButton_products_increment"
-                android:layout_width="74dp"
-                android:layout_height="75dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 app:srcCompat="@drawable/ic_add_black_24dp" />
         </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v7.widget.LinearLayoutCompat>

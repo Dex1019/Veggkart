@@ -78,11 +78,7 @@ public class Product {
   }
 
   public boolean getStock() {
-    if (this.stock != null && this.stock.trim().length() > 0 && this.stock.trim().equals("YES")) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.stock != null && this.stock.trim().length() > 0 && this.stock.trim().equals("YES");
   }
 
   public void setStock(boolean stock) {
