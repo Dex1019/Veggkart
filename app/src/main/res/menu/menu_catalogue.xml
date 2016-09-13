@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/menu_catalogue_profile"
+        android:icon="@drawable/ic_person_outline_black"
+        android:orderInCategory="50"
+        android:title="@string/label_profile"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menu_catalogue_signOut"
         android:icon="@drawable/ic_logout_black"
         android:orderInCategory="100"

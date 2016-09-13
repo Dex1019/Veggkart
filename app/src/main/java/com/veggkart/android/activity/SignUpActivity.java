@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.veggkart.android.R;
 import com.veggkart.android.model.User;
 import com.veggkart.android.util.APIHelper;
+import com.veggkart.android.util.Helper;
 import com.veggkart.android.util.UserHelper;
 
 import org.json.JSONException;
@@ -150,10 +151,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
       this.progressDialog.setMessage("Signing Up...");
       this.progressDialog.show();
 
-      User user = new User(username, password, email, fullName, address, city, state, mobile, zipCode);
-      user.encryptPassword();
+      User user = new User(email, fullName, address, city, state, mobile, zipCode);
+      password = Helper.stringToMD5Hex(password);
 
-      APIHelper.userSignUp(user, this, this, this);
+      APIHelper.userSignUp(user, username, password, this, this, this);
     }
   }
 
@@ -196,7 +197,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
   
   private void successfulSignUp(String userId) {
     String username = this.editTextUsername.getText().toString().trim();
-    UserHelper.storeUserId(userId, this);
+    String name = this.editTextName.getText().toString().trim();
+    String address = this.editTextAddress.getText().toString().trim();
+    String city = this.editTextCity.getText().toString().trim();
+    String state = this.spinnerState.getSelectedItem().toString().trim();
+    String zip = this.editTextZipCode.getText().toString().trim();
+    String mobile = this.editTextMobile.getText().toString().trim();
+    String email = this.editTextEmail.getText().toString().trim();
+
+    User user = new User(userId, email, name, address, city, state, mobile, zip);
+
+    UserHelper.storeUserDetails(user, this);
     UserHelper.storeUsername(username, this);
 
     CatalogueActivity.launchActivity(this);

@@ -3,7 +3,6 @@ package com.veggkart.android.model;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.veggkart.android.util.Helper;
 
 /**
  * Creator: vbarad
@@ -12,11 +11,8 @@ import com.veggkart.android.util.Helper;
  */
 public class User {
   @Expose
-  @SerializedName("username")
-  private String username;
-  @Expose
-  @SerializedName("passHash")
-  private String password;
+  @SerializedName("userid")
+  private String userId;
   @Expose
   @SerializedName("email")
   private String email;
@@ -43,9 +39,18 @@ public class User {
 
   }
 
-  public User(String username, String password, String email, String name, String address, String city, String state, String mobile, String zip) {
-    this.username = username;
-    this.password = password;
+  public User(String email, String name, String address, String city, String state, String mobile, String zip) {
+    this.email = email;
+    this.name = name;
+    this.address = address;
+    this.city = city;
+    this.state = state;
+    this.mobile = mobile;
+    this.zip = zip;
+  }
+
+  public User(String userId, String email, String name, String address, String city, String state, String mobile, String zip) {
+    this.userId = userId;
     this.email = email;
     this.name = name;
     this.address = address;
@@ -57,22 +62,6 @@ public class User {
 
   public static User getInstance(String userJson) {
     return (new Gson()).fromJson(userJson, User.class);
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 
   public String getEmail() {
@@ -131,7 +120,11 @@ public class User {
     this.zip = zip;
   }
 
-  public void encryptPassword() {
-    this.password = Helper.stringToMD5Hex(this.password);
+  public String getUserId() {
+    return userId;
+  }
+
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 }

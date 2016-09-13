@@ -12,6 +12,8 @@
     <string name="button_sign_up">Sign-Up</string>
     <string name="button_sign_in">Sign-In</string>
     <string name="label_sign_out">Sign-Out</string>
+    <string name="label_profile">Profile</string>
+    <string name="label_contact_details">Contact Details</string>
     <string name="label_full_name">Full Name</string>
     <string name="label_email">Email</string>
     <string name="label_username">Username</string>
@@ -59,4 +61,7 @@
         <item>Uttarakhand</item>
         <item>West Bengal</item>
     </string-array>
+
+    <!-- Constants -->
+    <string name="CONST_PREFS_FILE" translatable="false">veggkart-prefs</string>
 </resources>

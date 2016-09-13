@@ -67,12 +67,6 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
       actionBar.setTitle(this.getResources().getString(R.string.app_name));
     }
 
-    this.tabLayout = (TabLayout) this.findViewById(R.id.tabs_subBrokers);
-    this.viewPager = (ViewPager) this.findViewById(R.id.viewPager_subBrokers);
-    this.categoryAdapter = new CategoryAdapter(this.getSupportFragmentManager(), new ArrayList<Product>(), this);
-    viewPager.setAdapter(categoryAdapter);
-    tabLayout.setupWithViewPager(viewPager, true);
-
     this.cartButton = (AppCompatImageButton) this.findViewById(R.id.imageButton_catalogue_cart);
     this.orderTotalTextView = (AppCompatTextView) this.findViewById(R.id.textView_catalogue_orderTotal);
     this.checkoutButton = (AppCompatImageButton) this.findViewById(R.id.imageButton_catalogue_checkout);
@@ -82,9 +76,23 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
 
     this.orderTotalTextView.setText(this.getResources().getString(R.string.order_total, 0.0, 0));
 
-    String productsUrl = APIHelper.getEndpointProducts();
-    JsonObjectRequest productsRequest = new JsonObjectRequest(Request.Method.GET, productsUrl, new JSONObject(), this, this);
-    VolleySingleton.getInstance(this).addToRequestQueue(productsRequest);
+    this.categoryAdapter = CategoryAdapter.readFromSharedPreferences(this, this.getSupportFragmentManager(), this);
+
+    if (this.categoryAdapter == null) {
+      String productsUrl = APIHelper.getEndpointProducts();
+      JsonObjectRequest productsRequest = new JsonObjectRequest(Request.Method.GET, productsUrl, new JSONObject(), this, this);
+      VolleySingleton.getInstance(this).addToRequestQueue(productsRequest);
+
+      this.categoryAdapter = new CategoryAdapter(this.getSupportFragmentManager(), new ArrayList<Product>(), this);
+    }
+
+    int position = CategoryAdapter.readPositionFromSharedPreferences(this);
+
+    this.tabLayout = (TabLayout) this.findViewById(R.id.tabs_subBrokers);
+    this.viewPager = (ViewPager) this.findViewById(R.id.viewPager_subBrokers);
+    this.viewPager.setAdapter(categoryAdapter);
+    this.tabLayout.setupWithViewPager(viewPager, true);
+    this.viewPager.setCurrentItem(position);
   }
 
   @Override
@@ -99,6 +107,9 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
     int itemId = item.getItemId();
 
     switch (itemId) {
+      case R.id.menu_catalogue_profile:
+        this.openProfile();
+        break;
       case R.id.menu_catalogue_signOut:
         this.signOut();
         break;
@@ -115,7 +126,6 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
         //ToDo: Implement Cart-Details page
         break;
       case R.id.imageButton_catalogue_checkout:
-        //ToDo: Implement Checkout page
         CheckoutActivity.launchActivity(this, this.categoryAdapter.getCheckoutProducts());
         break;
     }
@@ -146,6 +156,13 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
   @Override
   public void onAdapterInteraction(double orderTotal, int numberOfProducts) {
     this.orderTotalTextView.setText(this.getResources().getString(R.string.order_total, orderTotal, numberOfProducts));
+  }
+
+  private void openProfile() {
+    this.categoryAdapter.storePositionToSharedPreferences(this, this.viewPager.getCurrentItem());
+    this.categoryAdapter.storeToSharedPreferences(this);
+
+    //ToDo: Open Profile activity
   }
 
   private void signOut() {

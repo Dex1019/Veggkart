@@ -1,9 +1,11 @@
 package com.veggkart.android.activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
@@ -11,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -18,7 +21,9 @@ import com.google.gson.Gson;
 import com.veggkart.android.R;
 import com.veggkart.android.adapter.CartAdapter;
 import com.veggkart.android.model.Product;
+import com.veggkart.android.model.User;
 import com.veggkart.android.util.APIHelper;
+import com.veggkart.android.util.UserHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,9 +85,38 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
     switch (viewId) {
       case R.id.button_checkout_placeOrder:
-        this.placeOrder();
+        this.confirmContactDetailsAndPlaceOrder();
         break;
     }
+  }
+
+  private void confirmContactDetailsAndPlaceOrder() {
+    User user = UserHelper.getUserDetails(this);
+
+    AlertDialog.Builder confirmationDialogBuilder = new AlertDialog.Builder(this);
+    confirmationDialogBuilder
+        .setCancelable(false)
+        .setTitle(this.getString(R.string.label_contact_details))
+        .setMessage("Are these your contact details?\n" +
+            "Email: " + user.getEmail() + "\n" +
+            "Mobile: " + user.getMobile() + "\n" +
+            "Address: " + user.getAddress())
+        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialogInterface, int i) {
+            CheckoutActivity.this.placeOrder();
+          }
+        })
+        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialogInterface, int i) {
+            Toast.makeText(CheckoutActivity.this, "Please update your contact details and then place the order", Toast.LENGTH_SHORT).show();
+          }
+        })
+        .setIcon(R.drawable.ic_person_outline_black);
+
+    AlertDialog confirmationDialog = confirmationDialogBuilder.create();
+    confirmationDialog.show();
   }
 
   private void placeOrder() {

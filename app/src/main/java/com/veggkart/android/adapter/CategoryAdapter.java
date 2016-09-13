@@ -1,15 +1,20 @@
 package com.veggkart.android.adapter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.ArrayMap;
 
+import com.google.gson.Gson;
+import com.veggkart.android.R;
 import com.veggkart.android.eventlistener.OnAdapterInteractionListener;
 import com.veggkart.android.fragment.ProductsListFragment;
 import com.veggkart.android.model.Product;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -19,6 +24,11 @@ import java.util.Comparator;
  * Project: veggkart
  */
 public class CategoryAdapter extends FragmentPagerAdapter {
+  private final static String KEY_POSITION = "catalogue-position";
+  private final static String KEY_PRODUCTS = "catalogue-products";
+  private final static String KEY_ORDER_TOTAL_PRICE = "catalogue-order-total-price";
+  private final static String KEY_NUMBER_OF_PRODUCTS = "catalogue-number-of-products";
+
   private ArrayMap<String, ArrayList<Product>> products;
   private ArrayList<String> categories;
   private OnAdapterInteractionListener adapterInteractionListener;
@@ -35,6 +45,50 @@ public class CategoryAdapter extends FragmentPagerAdapter {
     this.numberOfProducts = 0;
 
     this.adapterInteractionListener = adapterInteractionListener;
+  }
+
+  private CategoryAdapter(FragmentManager fragmentManager, ArrayList<Product> products, OnAdapterInteractionListener adapterInteractionListener, double orderTotalPrice, int numberOfProducts) {
+    super(fragmentManager);
+
+    this.sortAndCategorizeProducts(products);
+
+    this.orderTotalPrice = orderTotalPrice;
+    this.numberOfProducts = numberOfProducts;
+
+    this.adapterInteractionListener = adapterInteractionListener;
+  }
+
+  public static int readPositionFromSharedPreferences(Context context) {
+    SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.CONST_PREFS_FILE), Context.MODE_PRIVATE);
+    return sharedPreferences.getInt(KEY_POSITION, 0);
+  }
+
+  public static CategoryAdapter readFromSharedPreferences(Context context, FragmentManager fragmentManager, OnAdapterInteractionListener adapterInteractionListener) {
+    CategoryAdapter categoryAdapter;
+
+    SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.CONST_PREFS_FILE), Context.MODE_PRIVATE);
+
+    if (sharedPreferences.contains(KEY_PRODUCTS)) {
+      String productsJson = sharedPreferences.getString(KEY_PRODUCTS, "");
+      double orderTotalPrice = sharedPreferences.getFloat(KEY_ORDER_TOTAL_PRICE, 0.0f);
+      int numberOfProducts = sharedPreferences.getInt(KEY_NUMBER_OF_PRODUCTS, 0);
+
+      sharedPreferences
+          .edit()
+          .remove(KEY_PRODUCTS)
+          .remove(KEY_ORDER_TOTAL_PRICE)
+          .remove(KEY_NUMBER_OF_PRODUCTS)
+          .apply();
+
+      Gson gson = new Gson();
+      ArrayList<Product> products = new ArrayList<>(Arrays.asList(gson.fromJson(productsJson, Product[].class)));
+
+      categoryAdapter = new CategoryAdapter(fragmentManager, products, adapterInteractionListener, orderTotalPrice, numberOfProducts);
+    } else {
+      categoryAdapter = null;
+    }
+
+    return categoryAdapter;
   }
 
   private void sortAndCategorizeProducts(ArrayList<Product> products) {
@@ -140,5 +194,29 @@ public class CategoryAdapter extends FragmentPagerAdapter {
       }
     }
     return checkoutProducts;
+  }
+
+  public void storePositionToSharedPreferences(Context context, int position) {
+    SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.CONST_PREFS_FILE), Context.MODE_PRIVATE);
+    sharedPreferences
+        .edit()
+        .putInt(KEY_POSITION, position)
+        .apply();
+  }
+
+  public void storeToSharedPreferences(Context context) {
+    ArrayList<Product> products = new ArrayList<>();
+    for (ArrayList<Product> p : this.products.values()) {
+      products.addAll(p);
+    }
+
+    Gson gson = new Gson();
+    String productsJson = gson.toJson(products);
+
+    SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.CONST_PREFS_FILE), Context.MODE_PRIVATE);
+    sharedPreferences
+        .edit()
+        .putString(KEY_PRODUCTS, productsJson)
+        .apply();
   }
 }

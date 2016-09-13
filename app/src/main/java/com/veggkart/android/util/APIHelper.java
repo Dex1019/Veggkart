@@ -50,7 +50,7 @@ public class APIHelper {
 
   public static void placeOrder(ArrayList<Product> products, Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
     try {
-      String userId = UserHelper.getUserId(context);
+      String userId = UserHelper.getUserDetails(context).getUserId();
       JSONObject tempParameter = new JSONObject();
       tempParameter.put("userDetails", new JSONObject("{\"userid\":\"" + userId + "\"}"));
       JSONArray productsJson = new JSONArray();
@@ -89,9 +89,11 @@ public class APIHelper {
     }
   }
 
-  public static void userSignUp(User user, Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+  public static void userSignUp(User user, String username, String passHash, Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
     try {
       JSONObject tempParameter = new JSONObject((new Gson()).toJson(user));
+      tempParameter.put("username", username);
+      tempParameter.put("passHash", passHash);
       JSONObject parameters = new JSONObject();
       parameters.put("theDoor", tempParameter);
 
