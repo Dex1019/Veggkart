@@ -155,37 +155,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
       this.progressDialog.setMessage("Updating Profile...");
       this.progressDialog.show();
 
-      User currentUser = UserHelper.getUserDetails(this);
-
-      JSONObject changes = new JSONObject();
-      try {
-        if (!fullName.equals(currentUser.getName())) {
-          changes.put("name", fullName);
-        }
-        if (!address.equals(currentUser.getAddress())) {
-          changes.put("address", address);
-        }
-        if (!city.equals(currentUser.getCity())) {
-          changes.put("city", city);
-        }
-        if (!state.equals(currentUser.getState())) {
-          changes.put("state", state);
-        }
-        if (!zipCode.equals(currentUser.getZip())) {
-          changes.put("zip", zipCode);
-        }
-        if (!mobile.equals(currentUser.getMobile())) {
-          changes.put("mobile", mobile);
-        }
-        if (!email.equals(currentUser.getEmail())) {
-          changes.put("email", email);
-        }
-      } catch (JSONException e) {
-        e.printStackTrace();
-      }
-
       String userId = UserHelper.getUserDetails(this).getUserId();
-      APIHelper.userUpdateProfile(userId, changes, this, this, this);
+      User user = new User(userId, email, fullName, address, city, state, mobile, zipCode);
+
+      APIHelper.userUpdateProfile(user, this, this, this);
     }
   }
 
