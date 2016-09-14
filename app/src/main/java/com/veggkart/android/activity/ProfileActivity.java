@@ -91,6 +91,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     this.editTextMobile.setText(user.getMobile());
     this.editTextAddress.setText(user.getAddress());
     this.editTextCity.setText(user.getCity());
+    this.editTextZipCode.setText(user.getZip());
     this.spinnerState.setSelection(position);
   }
 
@@ -206,7 +207,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
   @Override
   public void onErrorResponse(VolleyError error) {
-    Log.e("Update-Profile", (new String(error.networkResponse.data, Charset.defaultCharset())));
+    if (error.networkResponse != null) {
+      Log.e("Update-Profile", (new String(error.networkResponse.data, Charset.defaultCharset())));
+    } else {
+      Log.e("Update-Profile", error.getMessage());
+    }
     Snackbar.make(this.editTextName, "Some error occurred\nTry again after some time", Snackbar.LENGTH_LONG).show();
   }
 }
