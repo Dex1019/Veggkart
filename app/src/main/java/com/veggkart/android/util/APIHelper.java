@@ -110,12 +110,10 @@ public class APIHelper {
     }
   }
 
-  public static void userUpdateProfile(User user, Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+  public static void userUpdateProfile(String userId, JSONObject changes, Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
     try {
-      JSONObject changes = new JSONObject(user.toString());
-      changes.remove("userid");
       JSONObject parameters = new JSONObject();
-      parameters.put("userid", user.getUserId());
+      parameters.put("userid", userId);
       parameters.put("changes", changes);
 
       JsonObjectRequest updateProfileRequest = new JsonObjectRequest(Request.Method.POST, APIHelper.getEndpointUpdateProfile(), parameters, responseListener, errorListener);
