@@ -127,6 +127,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     this.progressDialog.setIndeterminate(true);
     this.progressDialog.setTitle("VegGKart");
     this.progressDialog.setMessage("Placing order...");
+    this.progressDialog.setCancelable(false);
     this.progressDialog.show();
 
     APIHelper.placeOrder(this.products, this, this, this);

@@ -70,6 +70,28 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     this.buttonUpdateProfile = (AppCompatButton) this.findViewById(R.id.button_profile_updateProfile);
 
     this.buttonUpdateProfile.setOnClickListener(this);
+
+    this.fillInitialValues();
+  }
+
+  private void fillInitialValues() {
+    User user = UserHelper.getUserDetails(this);
+
+    String[] states = this.getResources().getStringArray(R.array.india_states);
+    int position = 0;
+    for (int i = 0; i < states.length; i++) {
+      if (user.getState().equals(states[i])) {
+        position = i;
+        break;
+      }
+    }
+
+    this.editTextName.setText(user.getName());
+    this.editTextEmail.setText(user.getEmail());
+    this.editTextMobile.setText(user.getMobile());
+    this.editTextAddress.setText(user.getAddress());
+    this.editTextCity.setText(user.getCity());
+    this.spinnerState.setSelection(position);
   }
 
   @Override
@@ -145,13 +167,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
       this.progressDialog.dismiss();
     }
 
-    //ToDo: Modify according to actual response. Refer to handling in Sign-Up activity
     try {
-      int updateCheck = response.getInt("updatecheck");
+      int updateCheck = response.getInt("success");
 
       switch (updateCheck) {
         case 0:
           this.onErrorResponse(new VolleyError("Corrupt network response"));
+          break;
+        case 10:
+          this.onErrorResponse(new VolleyError("Please provide valid inputs"));
           break;
         case 11:
           this.successfulUpdate();

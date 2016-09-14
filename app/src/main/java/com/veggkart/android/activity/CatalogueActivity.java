@@ -84,6 +84,10 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
       VolleySingleton.getInstance(this).addToRequestQueue(productsRequest);
 
       this.categoryAdapter = new CategoryAdapter(this.getSupportFragmentManager(), new ArrayList<Product>(), this);
+    } else {
+      this.findViewById(R.id.container_content).setVisibility(View.VISIBLE);
+      this.findViewById(R.id.placeholder_progress).setVisibility(View.GONE);
+      this.findViewById(R.id.placeHolder_error).setVisibility(View.GONE);
     }
 
     int position = CategoryAdapter.readPositionFromSharedPreferences(this);
@@ -123,7 +127,7 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
     int viewId = view.getId();
     switch (viewId) {
       case R.id.imageButton_catalogue_cart:
-        //ToDo: Implement Cart-Details page
+        // The button is put just as an icon
         break;
       case R.id.imageButton_catalogue_checkout:
         CheckoutActivity.launchActivity(this, this.categoryAdapter.getCheckoutProducts());

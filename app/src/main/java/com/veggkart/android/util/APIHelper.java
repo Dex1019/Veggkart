@@ -27,8 +27,7 @@ public class APIHelper {
   private static final String endpointPlaceOrder = "/api/upload_1.php";
   private static final String endpointSignIn = "/api/login_api.php";
   private static final String endpointSignUp = "/api/signup_api.php";
-  //ToDo: Set correct end-point
-  private static final String endpointUpdateProfile = "/api/update_api.php";
+  private static final String endpointUpdateProfile = "/api/user_change.php";
 
   public static String getEndpointProducts() {
     return APIHelper.baseUrl + APIHelper.endpointProducts;
@@ -112,15 +111,18 @@ public class APIHelper {
   }
 
   public static void userUpdateProfile(User user, Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
-//    try {
-    //ToDo: Set correct parameters and uncomment catch block
-    JSONObject parameters = new JSONObject();
+    try {
+      JSONObject changes = new JSONObject(user.toString());
+      changes.remove("userid");
+      JSONObject parameters = new JSONObject();
+      parameters.put("userid", user.getUserId());
+      parameters.put("changes", changes);
 
-    JsonObjectRequest updateProfileRequest = new JsonObjectRequest(Request.Method.POST, APIHelper.getEndpointUpdateProfile(), parameters, responseListener, errorListener);
-    VolleySingleton.getInstance(context).addToRequestQueue(updateProfileRequest);
-//    } catch (JSONException e) {
-//      e.printStackTrace();
-//      Toast.makeText(context, "Some error occurred\nPlease try again after some time", Toast.LENGTH_SHORT).show();
-//    }
+      JsonObjectRequest updateProfileRequest = new JsonObjectRequest(Request.Method.POST, APIHelper.getEndpointUpdateProfile(), parameters, responseListener, errorListener);
+      VolleySingleton.getInstance(context).addToRequestQueue(updateProfileRequest);
+    } catch (JSONException e) {
+      e.printStackTrace();
+      Toast.makeText(context, "Some error occurred\nPlease try again after some time", Toast.LENGTH_SHORT).show();
+    }
   }
 }

@@ -8,16 +8,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.veggkart.android.R;
 import com.veggkart.android.model.User;
 import com.veggkart.android.util.APIHelper;
@@ -32,17 +28,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
   private AppCompatEditText editTextUsername;
   private AppCompatEditText editTextPassword;
-  private AppCompatTextView textViewForgotPassword;
   private AppCompatButton buttonSignIn;
   private AppCompatButton buttonSignUp;
   private TextView textViewSkip;
 
   private ProgressDialog progressDialog;
-  /**
-   * ATTENTION: This was auto-generated to implement the App Indexing API.
-   * See https://g.co/AppIndexing/AndroidStudio for more information.
-   */
-  private GoogleApiClient client;
 
   public static void launchActivity(AppCompatActivity currentActivity) {
     Intent intent = new Intent(currentActivity, SignInActivity.class);
@@ -55,9 +45,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     super.onCreate(savedInstanceState);
 
     this.initialize();
-    // ATTENTION: This was auto-generated to implement the App Indexing API.
-    // See https://g.co/AppIndexing/AndroidStudio for more information.
-    client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
   }
 
   private void initialize() {
@@ -75,13 +62,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
       this.editTextUsername = (AppCompatEditText) this.findViewById(R.id.editText_signIn_username);
       this.editTextPassword = (AppCompatEditText) this.findViewById(R.id.editText_signIn_password);
-      this.textViewForgotPassword = (AppCompatTextView) this.findViewById(R.id.textView_signIn_forgotPassword);
       this.buttonSignIn = (AppCompatButton) this.findViewById(R.id.button_signIn_signIn);
       this.buttonSignUp = (AppCompatButton) this.findViewById(R.id.button_signIn_signUp);
       this.textViewSkip = (TextView) this.findViewById(R.id.button_skip);
 
       this.textViewSkip.setOnClickListener(this);
-      this.textViewForgotPassword.setOnClickListener(this);
       this.buttonSignIn.setOnClickListener(this);
       this.buttonSignUp.setOnClickListener(this);
     }
@@ -92,9 +77,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     int viewId = view.getId();
 
     switch (viewId) {
-      case R.id.textView_signIn_forgotPassword:
-        this.forgotPassword();
-        break;
       case R.id.button_signIn_signIn:
         this.signIn();
         break;
@@ -108,11 +90,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
   }
 
   private void skip_listener(){CatalogueActivity.launchActivity(this);}
-
-  private void forgotPassword() {
-    //ToDo: Implement actual logic
-    Toast.makeText(SignInActivity.this, "The functionality is yet to come", Toast.LENGTH_SHORT).show();
-  }
 
   private void signIn() {
     String username = this.editTextUsername.getText().toString().trim();

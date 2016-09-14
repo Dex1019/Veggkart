@@ -105,9 +105,12 @@ public class CategoryAdapter extends FragmentPagerAdapter {
       if (!this.products.containsKey(products.get(i).getCategory())) {
         this.products.put(products.get(i).getCategory(), new ArrayList<Product>());
       }
-      //ToDo: Get the price "VARIABLE" fixed
-      if (!products.get(i).getId().equals("81")) {
+
+      try {
+        Double.valueOf(products.get(i).getPrice());
         this.products.get(products.get(i).getCategory()).add(products.get(i));
+      } catch (NumberFormatException e) {
+        e.printStackTrace();
       }
     }
 

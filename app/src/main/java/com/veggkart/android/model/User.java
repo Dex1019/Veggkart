@@ -127,4 +127,10 @@ public class User {
   public void setUserId(String userId) {
     this.userId = userId;
   }
+
+  @Override
+  public String toString() {
+    Gson gson = new Gson();
+    return gson.toJson(this);
+  }
 }
