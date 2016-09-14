@@ -18,7 +18,6 @@ import com.android.volley.VolleyError;
 import com.veggkart.android.R;
 import com.veggkart.android.model.User;
 import com.veggkart.android.util.APIHelper;
-import com.veggkart.android.util.Helper;
 import com.veggkart.android.util.UserHelper;
 
 import org.json.JSONException;
@@ -26,24 +25,22 @@ import org.json.JSONObject;
 
 import java.nio.charset.Charset;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
 
   private TextInputEditText editTextName;
   private TextInputEditText editTextEmail;
-  private TextInputEditText editTextUsername;
-  private TextInputEditText editTextPassword;
   private TextInputEditText editTextMobile;
   private TextInputEditText editTextAddress;
   private TextInputEditText editTextCity;
   private TextInputEditText editTextZipCode;
   private AppCompatSpinner spinnerState;
-  private AppCompatButton buttonSignUp;
+  private AppCompatButton buttonUpdateProfile;
 
   private ProgressDialog progressDialog;
 
   public static void launchActivity(AppCompatActivity currentActivity) {
-    Intent signUpIntent = new Intent(currentActivity, SignUpActivity.class);
-    currentActivity.startActivity(signUpIntent);
+    Intent updateProfileIntent = new Intent(currentActivity, ProfileActivity.class);
+    currentActivity.startActivity(updateProfileIntent);
   }
 
   @Override
@@ -54,45 +51,61 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
   }
 
   private void initialize() {
-    setContentView(R.layout.activity_sign_up);
+    this.setContentView(R.layout.activity_profile);
 
     ActionBar actionBar = this.getSupportActionBar();
 
     if (actionBar != null) {
       actionBar.setDisplayHomeAsUpEnabled(true);
-      actionBar.setTitle(this.getResources().getString(R.string.title_sign_up));
+      actionBar.setTitle(R.string.title_update_profile);
     }
 
-    this.editTextName = (TextInputEditText) this.findViewById(R.id.editText_signUp_fullName);
-    this.editTextEmail = (TextInputEditText) this.findViewById(R.id.editText_signUp_email);
-    this.editTextUsername = (TextInputEditText) this.findViewById(R.id.editText_signUp_username);
-    this.editTextPassword = (TextInputEditText) this.findViewById(R.id.editText_signUp_password);
-    this.editTextMobile = (TextInputEditText) this.findViewById(R.id.editText_signUp_mobile);
-    this.editTextAddress = (TextInputEditText) this.findViewById(R.id.editText_signUp_address);
-    this.editTextCity = (TextInputEditText) this.findViewById(R.id.editText_signUp_city);
-    this.editTextZipCode = (TextInputEditText) this.findViewById(R.id.editText_signUp_zip);
-    this.spinnerState = (AppCompatSpinner) this.findViewById(R.id.spinner_signUp_state);
-    this.buttonSignUp = (AppCompatButton) this.findViewById(R.id.button_signUp_signUp);
+    this.editTextName = (TextInputEditText) this.findViewById(R.id.editText_profile_fullName);
+    this.editTextEmail = (TextInputEditText) this.findViewById(R.id.editText_profile_email);
+    this.editTextMobile = (TextInputEditText) this.findViewById(R.id.editText_profile_mobile);
+    this.editTextAddress = (TextInputEditText) this.findViewById(R.id.editText_profile_address);
+    this.editTextCity = (TextInputEditText) this.findViewById(R.id.editText_profile_city);
+    this.editTextZipCode = (TextInputEditText) this.findViewById(R.id.editText_profile_zip);
+    this.spinnerState = (AppCompatSpinner) this.findViewById(R.id.spinner_profile_state);
+    this.buttonUpdateProfile = (AppCompatButton) this.findViewById(R.id.button_profile_updateProfile);
 
-    this.buttonSignUp.setOnClickListener(this);
+    this.buttonUpdateProfile.setOnClickListener(this);
+
+    this.fillInitialValues();
+  }
+
+  private void fillInitialValues() {
+    User user = UserHelper.getUserDetails(this);
+
+    String[] states = this.getResources().getStringArray(R.array.india_states);
+    int position = 0;
+    for (int i = 0; i < states.length; i++) {
+      if (user.getState().equals(states[i])) {
+        position = i;
+        break;
+      }
+    }
+
+    this.editTextName.setText(user.getName());
+    this.editTextEmail.setText(user.getEmail());
+    this.editTextMobile.setText(user.getMobile());
+    this.editTextAddress.setText(user.getAddress());
+    this.editTextCity.setText(user.getCity());
+    this.spinnerState.setSelection(position);
   }
 
   @Override
   public void onClick(View view) {
-    int viewId = view.getId();
-
-    switch (viewId) {
-      case R.id.button_signUp_signUp:
-        this.signUp();
+    switch (view.getId()) {
+      case R.id.button_profile_updateProfile:
+        this.updateProfile();
         break;
     }
   }
 
-  private void signUp() {
+  private void updateProfile() {
     String fullName = this.editTextName.getText().toString().trim();
     String email = this.editTextEmail.getText().toString().trim();
-    String username = this.editTextUsername.getText().toString().trim();
-    String password = this.editTextPassword.getText().toString().trim();
     String mobile = this.editTextMobile.getText().toString().trim();
     String address = this.editTextAddress.getText().toString().trim();
     String city = this.editTextCity.getText().toString().trim();
@@ -109,16 +122,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
       isInputValid = false;
       this.editTextEmail.setError("Please enter valid email");
-    }
-
-    if (!username.matches("^[a-zA-Z0-9]+$")) {
-      isInputValid = false;
-      this.editTextUsername.setError("Letters & numbers only");
-    }
-
-    if (!password.matches("^.{6,}$")) {
-      isInputValid = false;
-      this.editTextPassword.setError("Should be at-least 6 characters long");
     }
 
     if (!mobile.matches("^[7-9]\\d{9}$")) {
@@ -148,13 +151,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
       this.progressDialog = new ProgressDialog(this);
       this.progressDialog.setIndeterminate(true);
       this.progressDialog.setTitle("VegGKart");
-      this.progressDialog.setMessage("Signing Up...");
+      this.progressDialog.setMessage("Updating Profile...");
       this.progressDialog.show();
 
-      User user = new User(email, fullName, address, city, state, mobile, zipCode);
-      password = Helper.stringToMD5Hex(password);
+      String userId = UserHelper.getUserDetails(this).getUserId();
+      User user = new User(userId, email, fullName, address, city, state, mobile, zipCode);
 
-      APIHelper.userSignUp(user, username, password, this, this, this);
+      APIHelper.userUpdateProfile(user, this, this, this);
     }
   }
 
@@ -165,28 +168,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     try {
-      int signUpCheck = response.getInt("signupcheck");
+      int updateCheck = response.getInt("success");
 
-      switch (signUpCheck) {
+      switch (updateCheck) {
         case 0:
           this.onErrorResponse(new VolleyError("Corrupt network response"));
           break;
-        case 12:
-          this.editTextUsername.setError("This username is unavailable");
-          break;
-        case 13:
-          this.editTextEmail.setError("Email address already in use");
-          break;
-        case 14:
-          this.editTextEmail.setError("An account with this credentials exists");
+        case 10:
+          this.onErrorResponse(new VolleyError("Please provide valid inputs"));
           break;
         case 11:
-          String userId = response.getString("userid");
-          if (userId != null && !userId.equals("null")) {
-            this.successfulSignUp(userId);
-          } else {
-            this.onErrorResponse(new VolleyError("Corrupt network response"));
-          }
+          this.successfulUpdate();
           break;
       }
     } catch (JSONException e) {
@@ -194,9 +186,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
       this.onErrorResponse(new VolleyError("Corrupt network response"));
     }
   }
-  
-  private void successfulSignUp(String userId) {
-    String username = this.editTextUsername.getText().toString().trim();
+
+  private void successfulUpdate() {
+    String userId = UserHelper.getUserDetails(this).getUserId();
     String name = this.editTextName.getText().toString().trim();
     String address = this.editTextAddress.getText().toString().trim();
     String city = this.editTextCity.getText().toString().trim();
@@ -208,14 +200,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     User user = new User(userId, email, name, address, city, state, mobile, zip);
 
     UserHelper.storeUserDetails(user, this);
-    UserHelper.storeUsername(username, this);
 
-    CatalogueActivity.launchActivity(this);
+    this.onBackPressed();
   }
-  
+
   @Override
   public void onErrorResponse(VolleyError error) {
-    Log.e("SIGN-UP", (new String(error.networkResponse.data, Charset.defaultCharset())));
-    Snackbar.make(this.editTextUsername, "Some error occurred\nTry again after some time", Snackbar.LENGTH_LONG).show();
+    Log.e("Update-Profile", (new String(error.networkResponse.data, Charset.defaultCharset())));
+    Snackbar.make(this.editTextName, "Some error occurred\nTry again after some time", Snackbar.LENGTH_LONG).show();
   }
 }

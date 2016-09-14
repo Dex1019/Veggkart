@@ -27,6 +27,7 @@ public class APIHelper {
   private static final String endpointPlaceOrder = "/api/upload_1.php";
   private static final String endpointSignIn = "/api/login_api.php";
   private static final String endpointSignUp = "/api/signup_api.php";
+  private static final String endpointUpdateProfile = "/api/user_change.php";
 
   public static String getEndpointProducts() {
     return APIHelper.baseUrl + APIHelper.endpointProducts;
@@ -48,9 +49,13 @@ public class APIHelper {
     return APIHelper.baseUrl + APIHelper.endpointSignUp;
   }
 
+  public static String getEndpointUpdateProfile() {
+    return APIHelper.baseUrl + APIHelper.endpointUpdateProfile;
+  }
+
   public static void placeOrder(ArrayList<Product> products, Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
     try {
-      String userId = UserHelper.getUserId(context);
+      String userId = UserHelper.getUserDetails(context).getUserId();
       JSONObject tempParameter = new JSONObject();
       tempParameter.put("userDetails", new JSONObject("{\"userid\":\"" + userId + "\"}"));
       JSONArray productsJson = new JSONArray();
@@ -89,14 +94,32 @@ public class APIHelper {
     }
   }
 
-  public static void userSignUp(User user, Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+  public static void userSignUp(User user, String username, String passHash, Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
     try {
       JSONObject tempParameter = new JSONObject((new Gson()).toJson(user));
+      tempParameter.put("username", username);
+      tempParameter.put("passHash", passHash);
       JSONObject parameters = new JSONObject();
       parameters.put("theDoor", tempParameter);
 
       JsonObjectRequest signUpRequest = new JsonObjectRequest(Request.Method.POST, APIHelper.getEndpointSignUp(), parameters, responseListener, errorListener);
       VolleySingleton.getInstance(context).addToRequestQueue(signUpRequest);
+    } catch (JSONException e) {
+      e.printStackTrace();
+      Toast.makeText(context, "Some error occurred\nPlease try again after some time", Toast.LENGTH_SHORT).show();
+    }
+  }
+
+  public static void userUpdateProfile(User user, Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+    try {
+      JSONObject changes = new JSONObject(user.toString());
+      changes.remove("userid");
+      JSONObject parameters = new JSONObject();
+      parameters.put("userid", user.getUserId());
+      parameters.put("changes", changes);
+
+      JsonObjectRequest updateProfileRequest = new JsonObjectRequest(Request.Method.POST, APIHelper.getEndpointUpdateProfile(), parameters, responseListener, errorListener);
+      VolleySingleton.getInstance(context).addToRequestQueue(updateProfileRequest);
     } catch (JSONException e) {
       e.printStackTrace();
       Toast.makeText(context, "Some error occurred\nPlease try again after some time", Toast.LENGTH_SHORT).show();
