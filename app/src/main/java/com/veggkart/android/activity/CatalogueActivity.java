@@ -162,7 +162,7 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
     this.categoryAdapter.storePositionToSharedPreferences(this, this.viewPager.getCurrentItem());
     this.categoryAdapter.storeToSharedPreferences(this);
 
-    //ToDo: Open Profile activity
+    ProfileActivity.launchActivity(this);
   }
 
   private void signOut() {
