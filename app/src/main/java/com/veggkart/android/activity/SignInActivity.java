@@ -53,13 +53,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     } else {
       setContentView(R.layout.activity_sign_in);
 
-      ActionBar actionBar = this.getSupportActionBar();
-
-      if (actionBar != null) {
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setTitle(this.getResources().getString(R.string.app_name));
-      }
-
       this.editTextUsername = (AppCompatEditText) this.findViewById(R.id.editText_signIn_username);
       this.editTextPassword = (AppCompatEditText) this.findViewById(R.id.editText_signIn_password);
       this.buttonSignIn = (AppCompatButton) this.findViewById(R.id.button_signIn_signIn);
