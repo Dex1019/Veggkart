@@ -1,53 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:background="@drawable/yo1"
     android:orientation="vertical"
     android:paddingEnd="16dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingStart="16dp"
-    android:background="@drawable/yo"
     tools:context=".activity.SignInActivity">
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        android:layout_height="20dp" />
 
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:gravity="center"
-        android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
         android:background="@drawable/logo"
+        android:gravity="center"
         android:textSize="50sp"
         android:typeface="normal" />
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        android:layout_height="30dp" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:textColorHint="@android:color/white"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/white">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/editText_signIn_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_username"
-            android:textColor="@android:color/white"
             android:inputType="textVisiblePassword"
-            android:singleLine="true" />
+
+            android:singleLine="true"
+            android:textColor="@color/colorAccent" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:textColorHint="@android:color/white"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/white">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/editText_signIn_password"
@@ -55,33 +59,36 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_password"
             android:inputType="textPassword"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:textColor="@color/colorAccent" />
     </android.support.design.widget.TextInputLayout>
+
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        android:layout_height="45dp" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/button_signIn_signIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_drawable"
         android:gravity="center"
         android:paddingBottom="12dp"
         android:paddingEnd="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:textColor="@android:color/white"
         android:paddingStart="10dp"
         android:paddingTop="12dp"
+
         android:text="@string/button_sign_in"
-        android:background="@drawable/button_drawable"
         android:textAllCaps="false"
+        android:textColor="@android:color/white"
         android:textSize="25sp" />
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        android:layout_height="20dp" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/button_signIn_signUp"
@@ -94,19 +101,22 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingStart="10dp"
-        android:textColor="@android:color/white"
         android:paddingTop="12dp"
         android:text="@string/button_sign_up"
         android:textAllCaps="false"
+        android:textColor="@android:color/white"
+
         android:textSize="25sp" />
+
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="56dp" />
+        android:layout_height="90dp" />
+
     <TextView
         android:id="@+id/button_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:clickable="true"
         android:text="SKIP"
         android:textColor="@android:color/white"

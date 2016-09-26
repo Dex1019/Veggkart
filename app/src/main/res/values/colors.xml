@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#68A8AD</color>
-    <color name="colorPrimaryDark">#68A8AD</color>
+    <color name="colorPrimary">#00BCD4</color>
+    <color name="colorPrimaryDark">#4DD0E1</color>
     <color name="colorAccent">#fbc02d</color>
     <color name="inactiveTabTextColor">#ffe0e0e0</color>
     <color name="activeTabTextColor">#fbc02d</color>
@@ -9,5 +9,5 @@
     <color name="viewSeparator">#ff424242</color>
     <color name="buttonPlus">#6C8672</color>
     <color name="buttonMinus">#C4D4AF</color>
-    <color name="listBackground">#737495</color>
+    <color name="listBackground">#faebd7</color>
 </resources>
