@@ -1,6 +1,6 @@
 # Veggkart
 ## An online platform which delivers grocery to home as per demand.
-![](http://www.free-icons-download.net/images/shopping-cart-logo-icon-74183.png =100x100)
+![](http://www.free-icons-download.net/images/shopping-cart-logo-icon-74183.png) {:height="36px" width="36px"}
 
 + Features
   - All types of grocery products are available
