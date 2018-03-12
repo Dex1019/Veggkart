@@ -28,6 +28,7 @@
                 android:id="@+id/tabs_subBrokers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:tabBackground="@color/colorPrimary"
                 app:tabGravity="fill"
                 app:tabMode="scrollable"
@@ -69,10 +70,12 @@
         app:srcCompat="@drawable/ic_cloud_off_black_24dp" />
 
     <RelativeLayout
+        android:id="@+id/item_price_detail_layout"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:visibility="gone">
 
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/imageButton_catalogue_cart"
@@ -97,7 +100,7 @@
             android:paddingStart="10dp"
             android:paddingTop="1dp"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="18sp"
             tools:text="Price\nProduct" />
 
         <android.support.v7.widget.AppCompatImageButton

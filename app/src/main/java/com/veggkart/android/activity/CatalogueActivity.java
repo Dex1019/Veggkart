@@ -147,6 +147,8 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
 //      this.findViewById(R.id.container_content).setVisibility(View.VISIBLE);
             this.findViewById(R.id.placeholder_progress).setVisibility(View.GONE);
             this.findViewById(R.id.placeHolder_error).setVisibility(View.GONE);
+            this.findViewById(R.id.tabs_subBrokers).setVisibility(View.VISIBLE);
+            this.findViewById(R.id.item_price_detail_layout).setVisibility(View.VISIBLE);
         } catch (JSONException e) {
             e.printStackTrace();
             this.onErrorResponse(new VolleyError("Corrupted response"));

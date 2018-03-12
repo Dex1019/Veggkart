@@ -27,33 +27,33 @@ import java.nio.charset.Charset;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
 
-  private TextInputEditText editTextName;
-  private TextInputEditText editTextEmail;
-  private TextInputEditText editTextUsername;
-  private TextInputEditText editTextPassword;
-  private TextInputEditText editTextMobile;
-  private TextInputEditText editTextAddress;
-  private TextInputEditText editTextCity;
-  private TextInputEditText editTextZipCode;
-  private AppCompatSpinner spinnerState;
-  private AppCompatButton buttonSignUp;
+    private TextInputEditText editTextName;
+    private TextInputEditText editTextEmail;
+    private TextInputEditText editTextUsername;
+    private TextInputEditText editTextPassword;
+    private TextInputEditText editTextMobile;
+    private TextInputEditText editTextAddress;
+    private TextInputEditText editTextCity;
+    private TextInputEditText editTextZipCode;
+    private AppCompatSpinner spinnerState;
+    private AppCompatButton buttonSignUp;
 
-  private ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
-  public static void launchActivity(AppCompatActivity currentActivity) {
-    Intent signUpIntent = new Intent(currentActivity, SignUpActivity.class);
-    currentActivity.startActivity(signUpIntent);
-  }
+    public static void launchActivity(AppCompatActivity currentActivity) {
+        Intent signUpIntent = new Intent(currentActivity, SignUpActivity.class);
+        currentActivity.startActivity(signUpIntent);
+    }
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    this.initialize();
-  }
+        this.initialize();
+    }
 
-  private void initialize() {
-    setContentView(R.layout.activity_sign_up);
+    private void initialize() {
+        setContentView(R.layout.activity_sign_up);
 
 //    ActionBar actionBar = this.getSupportActionBar();
 //
@@ -62,159 +62,159 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 //      actionBar.setTitle(this.getResources().getString(R.string.title_sign_up));
 //    }
 
-      this.editTextName = this.findViewById(R.id.editText_signUp_fullName);
-      this.editTextEmail = this.findViewById(R.id.editText_signUp_email);
-      this.editTextUsername = this.findViewById(R.id.editText_signUp_username);
-      this.editTextPassword = this.findViewById(R.id.editText_signUp_password);
-      this.editTextMobile = this.findViewById(R.id.editText_signUp_mobile);
-      this.editTextAddress = this.findViewById(R.id.editText_signUp_address);
-      this.editTextCity = this.findViewById(R.id.editText_signUp_city);
-      this.editTextZipCode = this.findViewById(R.id.editText_signUp_zip);
-      this.spinnerState = this.findViewById(R.id.spinner_signUp_state);
-      this.buttonSignUp = this.findViewById(R.id.button_signUp_signUp);
+        this.editTextName = this.findViewById(R.id.editText_signUp_fullName);
+        this.editTextEmail = this.findViewById(R.id.editText_signUp_email);
+        this.editTextUsername = this.findViewById(R.id.editText_signUp_username);
+        this.editTextPassword = this.findViewById(R.id.editText_signUp_password);
+        this.editTextMobile = this.findViewById(R.id.editText_signUp_mobile);
+        this.editTextAddress = this.findViewById(R.id.editText_signUp_address);
+        this.editTextCity = this.findViewById(R.id.editText_signUp_city);
+        this.editTextZipCode = this.findViewById(R.id.editText_signUp_zip);
+        this.spinnerState = this.findViewById(R.id.spinner_signUp_state);
+        this.buttonSignUp = this.findViewById(R.id.button_signUp_signUp);
 
-    this.buttonSignUp.setOnClickListener(this);
-  }
-
-  @Override
-  public void onClick(View view) {
-    int viewId = view.getId();
-
-    switch (viewId) {
-      case R.id.button_signUp_signUp:
-        this.signUp();
-        break;
-    }
-  }
-
-  private void signUp() {
-    String fullName = this.editTextName.getText().toString().trim();
-    String email = this.editTextEmail.getText().toString().trim();
-    String username = this.editTextUsername.getText().toString().trim();
-    String password = this.editTextPassword.getText().toString().trim();
-    String mobile = this.editTextMobile.getText().toString().trim();
-    String address = this.editTextAddress.getText().toString().trim();
-    String city = this.editTextCity.getText().toString().trim();
-    String zipCode = this.editTextZipCode.getText().toString().trim();
-    String state = this.spinnerState.getSelectedItem().toString().trim();
-
-    boolean isInputValid = true;
-
-    if (!fullName.matches("^(\\w+\\s)+\\w+$")) {
-      isInputValid = false;
-      this.editTextName.setError("Please enter your full name");
+        this.buttonSignUp.setOnClickListener(this);
     }
 
-    if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-      isInputValid = false;
-      this.editTextEmail.setError("Please enter valid email");
+    @Override
+    public void onClick(View view) {
+        int viewId = view.getId();
+
+        switch (viewId) {
+            case R.id.button_signUp_signUp:
+                this.signUp();
+                break;
+        }
     }
 
-    if (!username.matches("^[a-zA-Z0-9]+$")) {
-      isInputValid = false;
-      this.editTextUsername.setError("Letters & numbers only");
+    private void signUp() {
+        String fullName = this.editTextName.getText().toString().trim();
+        String email = this.editTextEmail.getText().toString().trim();
+        String username = this.editTextUsername.getText().toString().trim();
+        String password = this.editTextPassword.getText().toString().trim();
+        String mobile = this.editTextMobile.getText().toString().trim();
+        String address = this.editTextAddress.getText().toString().trim();
+        String city = this.editTextCity.getText().toString().trim();
+        String zipCode = this.editTextZipCode.getText().toString().trim();
+        String state = this.spinnerState.getSelectedItem().toString().trim();
+
+        boolean isInputValid = true;
+
+        if (!fullName.matches("^(\\w+\\s)+\\w+$")) {
+            isInputValid = false;
+            this.editTextName.setError("Please enter your full name");
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            isInputValid = false;
+            this.editTextEmail.setError("Please enter valid email");
+        }
+
+        if (!username.matches("^[a-zA-Z0-9]+$")) {
+            isInputValid = false;
+            this.editTextUsername.setError("Letters & numbers only");
+        }
+
+        if (!password.matches("^.{6,}$")) {
+            isInputValid = false;
+            this.editTextPassword.setError("Should be at-least 6 characters long");
+        }
+
+        if (!mobile.matches("^[7-9]\\d{9}$")) {
+            isInputValid = false;
+            this.editTextMobile.setError("Enter full mobile number(10 digits)");
+        }
+
+        if (!address.matches("^.+$")) {
+            isInputValid = false;
+            this.editTextAddress.setError("Address can\'t be empty");
+        }
+
+        if (!city.matches("^.+$")) {
+            isInputValid = false;
+            this.editTextCity.setError("City can't be empty");
+        }
+
+        if (!zipCode.matches("^[1-9]\\d{5}$")) {
+            isInputValid = false;
+            this.editTextZipCode.setError("Enter valid zip-code");
+        }
+
+        if (isInputValid) {
+            if (this.progressDialog != null && this.progressDialog.isShowing()) {
+                this.progressDialog.dismiss();
+            }
+            this.progressDialog = new ProgressDialog(this);
+            this.progressDialog.setIndeterminate(true);
+            this.progressDialog.setTitle("VegGKart");
+            this.progressDialog.setMessage("Signing Up...");
+            this.progressDialog.show();
+
+            User user = new User(email, fullName, address, city, state, mobile, zipCode);
+            password = Helper.stringToMD5Hex(password);
+
+            APIHelper.userSignUp(user, username, password, this, this, this);
+        }
     }
 
-    if (!password.matches("^.{6,}$")) {
-      isInputValid = false;
-      this.editTextPassword.setError("Should be at-least 6 characters long");
-    }
+    @Override
+    public void onResponse(JSONObject response) {
+        if (this.progressDialog != null && this.progressDialog.isShowing()) {
+            this.progressDialog.dismiss();
+        }
 
-    if (!mobile.matches("^[7-9]\\d{9}$")) {
-      isInputValid = false;
-      this.editTextMobile.setError("Enter full mobile number(10 digits)");
-    }
+        try {
+            int signUpCheck = response.getInt("signupcheck");
 
-    if (!address.matches("^.+$")) {
-      isInputValid = false;
-      this.editTextAddress.setError("Address can\'t be empty");
-    }
-
-    if (!city.matches("^.+$")) {
-      isInputValid = false;
-      this.editTextCity.setError("City can't be empty");
-    }
-
-    if (!zipCode.matches("^[1-9]\\d{5}$")) {
-      isInputValid = false;
-      this.editTextZipCode.setError("Enter valid zip-code");
-    }
-
-    if (isInputValid) {
-      if (this.progressDialog != null && this.progressDialog.isShowing()) {
-        this.progressDialog.dismiss();
-      }
-      this.progressDialog = new ProgressDialog(this);
-      this.progressDialog.setIndeterminate(true);
-      this.progressDialog.setTitle("VegGKart");
-      this.progressDialog.setMessage("Signing Up...");
-      this.progressDialog.show();
-
-      User user = new User(email, fullName, address, city, state, mobile, zipCode);
-      password = Helper.stringToMD5Hex(password);
-
-      APIHelper.userSignUp(user, username, password, this, this, this);
-    }
-  }
-
-  @Override
-  public void onResponse(JSONObject response) {
-    if (this.progressDialog != null && this.progressDialog.isShowing()) {
-      this.progressDialog.dismiss();
-    }
-
-    try {
-      int signUpCheck = response.getInt("signupcheck");
-
-      switch (signUpCheck) {
-        case 0:
-          this.onErrorResponse(new VolleyError("Corrupt network response"));
-          break;
-        case 12:
-          this.editTextUsername.setError("This username is unavailable");
-          break;
-        case 13:
-          this.editTextEmail.setError("Email address already in use");
-          break;
-        case 14:
-          this.editTextEmail.setError("An account with this credentials exists");
-          break;
-        case 11:
-          String userId = response.getString("userid");
-          if (userId != null && !userId.equals("null")) {
-            this.successfulSignUp(userId);
-          } else {
+            switch (signUpCheck) {
+                case 0:
+                    this.onErrorResponse(new VolleyError("Corrupt network response"));
+                    break;
+                case 12:
+                    this.editTextUsername.setError("This username is unavailable");
+                    break;
+                case 13:
+                    this.editTextEmail.setError("Email address already in use");
+                    break;
+                case 14:
+                    this.editTextEmail.setError("An account with this credentials exists");
+                    break;
+                case 11:
+                    String userId = response.getString("userid");
+                    if (userId != null && !userId.equals("null")) {
+                        this.successfulSignUp(userId);
+                    } else {
+                        this.onErrorResponse(new VolleyError("Corrupt network response"));
+                    }
+                    break;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
             this.onErrorResponse(new VolleyError("Corrupt network response"));
-          }
-          break;
-      }
-    } catch (JSONException e) {
-      e.printStackTrace();
-      this.onErrorResponse(new VolleyError("Corrupt network response"));
+        }
     }
-  }
-  
-  private void successfulSignUp(String userId) {
-    String username = this.editTextUsername.getText().toString().trim();
-    String name = this.editTextName.getText().toString().trim();
-    String address = this.editTextAddress.getText().toString().trim();
-    String city = this.editTextCity.getText().toString().trim();
-    String state = this.spinnerState.getSelectedItem().toString().trim();
-    String zip = this.editTextZipCode.getText().toString().trim();
-    String mobile = this.editTextMobile.getText().toString().trim();
-    String email = this.editTextEmail.getText().toString().trim();
 
-    User user = new User(userId, email, name, address, city, state, mobile, zip);
+    private void successfulSignUp(String userId) {
+        String username = this.editTextUsername.getText().toString().trim();
+        String name = this.editTextName.getText().toString().trim();
+        String address = this.editTextAddress.getText().toString().trim();
+        String city = this.editTextCity.getText().toString().trim();
+        String state = this.spinnerState.getSelectedItem().toString().trim();
+        String zip = this.editTextZipCode.getText().toString().trim();
+        String mobile = this.editTextMobile.getText().toString().trim();
+        String email = this.editTextEmail.getText().toString().trim();
 
-    UserHelper.storeUserDetails(user, this);
-    UserHelper.storeUsername(username, this);
+        User user = new User(userId, email, name, address, city, state, mobile, zip);
 
-    CatalogueActivity.launchActivity(this);
-  }
-  
-  @Override
-  public void onErrorResponse(VolleyError error) {
-    Log.e("SIGN-UP", (new String(error.networkResponse.data, Charset.defaultCharset())));
-    Snackbar.make(this.editTextUsername, "Some error occurred\nTry again after some time", Snackbar.LENGTH_LONG).show();
-  }
+        UserHelper.storeUserDetails(user, this);
+        UserHelper.storeUsername(username, this);
+
+        CatalogueActivity.launchActivity(this);
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Log.e("SIGN-UP", (new String(error.networkResponse.data, Charset.defaultCharset())));
+        Snackbar.make(this.editTextUsername, "Some error occurred\nTry again after some time", Snackbar.LENGTH_LONG).show();
+    }
 }
