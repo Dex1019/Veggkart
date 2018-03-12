@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatSpinner;
@@ -56,23 +55,23 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
   private void initialize() {
     setContentView(R.layout.activity_sign_up);
 
-    ActionBar actionBar = this.getSupportActionBar();
+//    ActionBar actionBar = this.getSupportActionBar();
+//
+//    if (actionBar != null) {
+//      actionBar.setDisplayHomeAsUpEnabled(true);
+//      actionBar.setTitle(this.getResources().getString(R.string.title_sign_up));
+//    }
 
-    if (actionBar != null) {
-      actionBar.setDisplayHomeAsUpEnabled(true);
-      actionBar.setTitle(this.getResources().getString(R.string.title_sign_up));
-    }
-
-    this.editTextName = (TextInputEditText) this.findViewById(R.id.editText_signUp_fullName);
-    this.editTextEmail = (TextInputEditText) this.findViewById(R.id.editText_signUp_email);
-    this.editTextUsername = (TextInputEditText) this.findViewById(R.id.editText_signUp_username);
-    this.editTextPassword = (TextInputEditText) this.findViewById(R.id.editText_signUp_password);
-    this.editTextMobile = (TextInputEditText) this.findViewById(R.id.editText_signUp_mobile);
-    this.editTextAddress = (TextInputEditText) this.findViewById(R.id.editText_signUp_address);
-    this.editTextCity = (TextInputEditText) this.findViewById(R.id.editText_signUp_city);
-    this.editTextZipCode = (TextInputEditText) this.findViewById(R.id.editText_signUp_zip);
-    this.spinnerState = (AppCompatSpinner) this.findViewById(R.id.spinner_signUp_state);
-    this.buttonSignUp = (AppCompatButton) this.findViewById(R.id.button_signUp_signUp);
+      this.editTextName = this.findViewById(R.id.editText_signUp_fullName);
+      this.editTextEmail = this.findViewById(R.id.editText_signUp_email);
+      this.editTextUsername = this.findViewById(R.id.editText_signUp_username);
+      this.editTextPassword = this.findViewById(R.id.editText_signUp_password);
+      this.editTextMobile = this.findViewById(R.id.editText_signUp_mobile);
+      this.editTextAddress = this.findViewById(R.id.editText_signUp_address);
+      this.editTextCity = this.findViewById(R.id.editText_signUp_city);
+      this.editTextZipCode = this.findViewById(R.id.editText_signUp_zip);
+      this.spinnerState = this.findViewById(R.id.spinner_signUp_state);
+      this.buttonSignUp = this.findViewById(R.id.button_signUp_signUp);
 
     this.buttonSignUp.setOnClickListener(this);
   }

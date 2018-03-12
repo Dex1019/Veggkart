@@ -55,8 +55,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
+      getSupportActionBar().setHomeButtonEnabled(true);
     this.initialize(this.getIntent().getExtras());
+
   }
 
   private void initialize(Bundle extras) {
@@ -64,19 +65,19 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
     this.products = new ArrayList<>(Arrays.asList((new Gson()).fromJson(extras.getString(CheckoutActivity.PRODUCTS), Product[].class)));
 
-    this.cartRecyclerView = (RecyclerView) this.findViewById(R.id.recyclerView_cart);
+      this.cartRecyclerView = this.findViewById(R.id.recyclerView_cart);
     this.cartRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     this.cartAdapter = new CartAdapter(this.products);
     this.cartRecyclerView.setAdapter(this.cartAdapter);
 
-    this.textViewNumberOfProducts = (AppCompatTextView) this.findViewById(R.id.textView_checkout_quantity);
-    this.textViewOrderTotal = (AppCompatTextView) this.findViewById(R.id.textView_checkout_orderTotal);
+      this.textViewNumberOfProducts = this.findViewById(R.id.textView_checkout_quantity);
+      this.textViewOrderTotal = this.findViewById(R.id.textView_checkout_orderTotal);
 
     this.textViewNumberOfProducts.setText(String.valueOf(this.cartAdapter.getNumberOfProducts()) + " products");
     this.textViewOrderTotal.setText(this.getString(R.string.price, this.cartAdapter.getOrderTotal()));
 
-    this.buttonPlaceOrder = (AppCompatButton) this.findViewById(R.id.button_checkout_placeOrder);
-    this.buttonPlaceOrder.setOnClickListener(this);
+      this.buttonPlaceOrder = this.findViewById(R.id.button_checkout_placeOrder);
+      this.buttonPlaceOrder.setOnClickListener(this);
   }
 
   @Override

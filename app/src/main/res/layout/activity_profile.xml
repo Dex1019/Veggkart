@@ -128,10 +128,13 @@
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/button_profile_updateProfile"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:gravity="center"
             android:text="@string/button_update_details"
             android:textAllCaps="false"
-            android:textSize="30sp" />
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
     </android.support.v7.widget.LinearLayoutCompat>
 

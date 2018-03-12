@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * Project: veggkart
  */
 public class APIHelper {
-  private static final String baseUrl = "http://nullsquad.in";
+    private static final String baseUrl = "http://139.59.27.88/";
   private static final String endpointProducts = "/api/crud_api.php";
   private static final String endpointPlaceOrder = "/api/upload_1.php";
   private static final String endpointSignIn = "/api/login_api.php";

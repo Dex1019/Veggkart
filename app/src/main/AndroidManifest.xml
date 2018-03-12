@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.veggkart.android"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.veggkart.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -23,7 +23,8 @@
         <activity
             android:name=".activity.SignUpActivity"
             android:parentActivityName=".activity.SignInActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.SignInActivity" />
@@ -51,7 +52,8 @@
         <activity
             android:name=".activity.CheckoutActivity"
             android:parentActivityName=".activity.CatalogueActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.CatalogueActivity" />
@@ -66,7 +68,8 @@
         <activity
             android:name=".activity.ProfileActivity"
             android:parentActivityName=".activity.CatalogueActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.CatalogueActivity" />

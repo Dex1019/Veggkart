@@ -1,6 +1,6 @@
 <resources>
     <!-- Titles -->
-    <string name="app_name">VegGKart</string>
+    <string name="app_name">VeggKart</string>
     <string name="title_sign_up">Sign-Up</string>
     <string name="title_update_profile">Update Profile</string>
 
@@ -10,8 +10,8 @@
     <string name="currency_inr">\u20b9</string>
 
     <!-- Labels -->
-    <string name="button_sign_up">Sign-Up</string>
-    <string name="button_sign_in">Sign-In</string>
+    <string name="button_sign_up">SIGN UP</string>
+    <string name="button_sign_in">LOGIN</string>
     <string name="button_update_details">Update Details</string>
     <string name="label_sign_out">Sign-Out</string>
     <string name="label_profile">Profile</string>
