@@ -1,9 +1,11 @@
 # Veggkart
 ## An online platform which delivers grocery to home as per demand.
 <img src="http://www.free-icons-download.net/images/shopping-cart-logo-icon-74183.png" width="100" height="100"/>
-<img src="https://raw.githubusercontent.com/Dex1019/Veggkart/master/screenshot/1.png" width="200" height="200"/>
-![alt text](https://raw.githubusercontent.com/Dex1019/Veggkart/master/screenshot/1.png)
 
+### Screenshots
+<img src="https://raw.githubusercontent.com/Dex1019/Veggkart/master/screenshot/1.png" width="300" height="400"/>
+<img src="https://raw.githubusercontent.com/Dex1019/Veggkart/master/screenshot/2.png" width="300" height="400"/>
+<img src="https://raw.githubusercontent.com/Dex1019/Veggkart/master/screenshot/3.png" width="300" height="400"/>
 
 + Features
   - All types of grocery products are available
@@ -12,9 +14,7 @@
   - Daily updates on price details of products
   - Exciting discount on products every week
   
-+ TODO list
++ Upcoming Features
   - Google+ login 
-  - Stripe payment 
-  - Redesign UI
-  - Solve cart activity problem
+  - Add Payment Gateway
  
