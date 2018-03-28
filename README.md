@@ -2,6 +2,11 @@
 ## An online platform which delivers grocery to home as per demand.
 <img src="http://www.free-icons-download.net/images/shopping-cart-logo-icon-74183.png" width="70" height="70"/> It's time to buy some Groceries.
 
+<p align="right">
+  <img src="http://www.free-icons-download.net/images/shopping-cart-logo-icon-74183.png" width="70" height="70"/>
+  
+</p>
+
 + Features
   - All types of grocery products are available
   - Online and offline payment mode
