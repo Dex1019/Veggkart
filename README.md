@@ -14,7 +14,7 @@
   - Add Payment Gateway
  
  
- ### Screenshots
++ ### Screenshots
 <img src="https://raw.githubusercontent.com/Dex1019/Veggkart/master/screenshot/1.png" width="200" height="300"/>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; <img src="https://raw.githubusercontent.com/Dex1019/Veggkart/master/screenshot/2.png" width="200" height="300"/>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
 <img src="https://raw.githubusercontent.com/Dex1019/Veggkart/master/screenshot/3.png" width="200" height="300"/>
 
