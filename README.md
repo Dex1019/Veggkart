@@ -3,7 +3,7 @@
 <img src="http://www.free-icons-download.net/images/shopping-cart-logo-icon-74183.png" width="100" height="100"/>
 
 ### Screenshots
-<img src="https://raw.githubusercontent.com/Dex1019/Veggkart/master/screenshot/1.png" width="200" height="300"/> <&nbsp> <img src="https://raw.githubusercontent.com/Dex1019/Veggkart/master/screenshot/2.png" width="200" height="300"/>
+<img src="https://raw.githubusercontent.com/Dex1019/Veggkart/master/screenshot/1.png" width="200" height="300"/> &nbsp <img src="https://raw.githubusercontent.com/Dex1019/Veggkart/master/screenshot/2.png" width="200" height="300"/>
 <img src="https://raw.githubusercontent.com/Dex1019/Veggkart/master/screenshot/3.png" width="200" height="300"/>
 
 + Features
