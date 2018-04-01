@@ -8,8 +8,7 @@ import com.veggkart.android.R;
 import com.veggkart.android.model.User;
 
 /**
- * Creator: vbarad
- * Date: 2016-08-10
+ *
  * Project: veggkart
  */
 public class UserHelper {

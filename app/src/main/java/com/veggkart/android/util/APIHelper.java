@@ -17,8 +17,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * Creator: vbarad
- * Date: 2016-08-02
+ *
  * Project: veggkart
  */
 public class APIHelper {

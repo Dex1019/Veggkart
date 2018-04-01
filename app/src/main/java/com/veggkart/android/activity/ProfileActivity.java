@@ -47,8 +47,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        this.initialize();
+        initialize();
     }
 
     private void initialize() {
@@ -61,18 +60,18 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             actionBar.setTitle(R.string.title_update_profile);
         }
 
-        this.editTextName = this.findViewById(R.id.editText_profile_fullName);
-        this.editTextEmail = this.findViewById(R.id.editText_profile_email);
-        this.editTextMobile = this.findViewById(R.id.editText_profile_mobile);
-        this.editTextAddress = this.findViewById(R.id.editText_profile_address);
-        this.editTextCity = this.findViewById(R.id.editText_profile_city);
-        this.editTextZipCode = this.findViewById(R.id.editText_profile_zip);
-        this.spinnerState = this.findViewById(R.id.spinner_profile_state);
-        this.buttonUpdateProfile = this.findViewById(R.id.button_profile_updateProfile);
+        editTextName = findViewById(R.id.editText_profile_fullName);
+        editTextEmail = findViewById(R.id.editText_profile_email);
+        editTextMobile = findViewById(R.id.editText_profile_mobile);
+        editTextAddress = findViewById(R.id.editText_profile_address);
+        editTextCity = findViewById(R.id.editText_profile_city);
+        editTextZipCode = findViewById(R.id.editText_profile_zip);
+        spinnerState = findViewById(R.id.spinner_profile_state);
+        buttonUpdateProfile = findViewById(R.id.button_profile_updateProfile);
 
-        this.buttonUpdateProfile.setOnClickListener(this);
+        buttonUpdateProfile.setOnClickListener(this);
 
-        this.fillInitialValues();
+        fillInitialValues();
     }
 
     private void fillInitialValues() {
@@ -88,12 +87,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
 
-            this.editTextName.setText(user.getName());
-            this.editTextEmail.setText(user.getEmail());
-            this.editTextMobile.setText(user.getMobile());
-            this.editTextAddress.setText(user.getAddress());
-            this.editTextCity.setText(user.getCity());
-            this.spinnerState.setSelection(position);
+            editTextName.setText(user.getName());
+            editTextEmail.setText(user.getEmail());
+            editTextMobile.setText(user.getMobile());
+            editTextAddress.setText(user.getAddress());
+            editTextCity.setText(user.getCity());
+            spinnerState.setSelection(position);
         } catch (NullPointerException e) {
             Toast.makeText(this, "Please Login In", Toast.LENGTH_SHORT).show();
         }
@@ -110,55 +109,55 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void updateProfile() {
-        String fullName = this.editTextName.getText().toString().trim();
-        String email = this.editTextEmail.getText().toString().trim();
-        String mobile = this.editTextMobile.getText().toString().trim();
-        String address = this.editTextAddress.getText().toString().trim();
-        String city = this.editTextCity.getText().toString().trim();
-        String zipCode = this.editTextZipCode.getText().toString().trim();
-        String state = this.spinnerState.getSelectedItem().toString().trim();
+        String fullName = editTextName.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
+        String mobile = editTextMobile.getText().toString().trim();
+        String address = editTextAddress.getText().toString().trim();
+        String city = editTextCity.getText().toString().trim();
+        String zipCode = editTextZipCode.getText().toString().trim();
+        String state = spinnerState.getSelectedItem().toString().trim();
 
         boolean isInputValid = true;
 
         if (!fullName.matches("^(\\w+\\s)+\\w+$")) {
             isInputValid = false;
-            this.editTextName.setError("Please enter your full name");
+            editTextName.setError("Please enter your full name");
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             isInputValid = false;
-            this.editTextEmail.setError("Please enter valid email");
+            editTextEmail.setError("Please enter valid email");
         }
 
         if (!mobile.matches("^[7-9]\\d{9}$")) {
             isInputValid = false;
-            this.editTextMobile.setError("Enter full mobile number(10 digits)");
+            editTextMobile.setError("Enter full mobile number(10 digits)");
         }
 
         if (!address.matches("^.+$")) {
             isInputValid = false;
-            this.editTextAddress.setError("Address can\'t be empty");
+            editTextAddress.setError("Address can\'t be empty");
         }
 
         if (!city.matches("^.+$")) {
             isInputValid = false;
-            this.editTextCity.setError("City can't be empty");
+            editTextCity.setError("City can't be empty");
         }
 
         if (!zipCode.matches("^[1-9]\\d{5}$")) {
             isInputValid = false;
-            this.editTextZipCode.setError("Enter valid zip-code");
+            editTextZipCode.setError("Enter valid zip-code");
         }
 
         if (isInputValid) {
-            if (this.progressDialog != null && this.progressDialog.isShowing()) {
-                this.progressDialog.dismiss();
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
             }
-            this.progressDialog = new ProgressDialog(this);
-            this.progressDialog.setIndeterminate(true);
-            this.progressDialog.setTitle("VegGKart");
-            this.progressDialog.setMessage("Updating Profile...");
-            this.progressDialog.show();
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setTitle("VegGKart");
+            progressDialog.setMessage("Updating Profile...");
+            progressDialog.show();
 
             String userId = UserHelper.getUserDetails(this).getUserId();
             User user = new User(userId, email, fullName, address, city, state, mobile, zipCode);
@@ -169,8 +168,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onResponse(JSONObject response) {
-        if (this.progressDialog != null && this.progressDialog.isShowing()) {
-            this.progressDialog.dismiss();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
         }
 
         try {
@@ -178,30 +177,30 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
             switch (updateCheck) {
                 case 0:
-                    this.onErrorResponse(new VolleyError("Corrupt network response"));
+                    onErrorResponse(new VolleyError("Corrupt network response"));
                     break;
                 case 10:
-                    this.onErrorResponse(new VolleyError("Please provide valid inputs"));
+                    onErrorResponse(new VolleyError("Please provide valid inputs"));
                     break;
                 case 11:
-                    this.successfulUpdate();
+                    successfulUpdate();
                     break;
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            this.onErrorResponse(new VolleyError("Corrupt network response"));
+            onErrorResponse(new VolleyError("Corrupt network response"));
         }
     }
 
     private void successfulUpdate() {
         String userId = UserHelper.getUserDetails(this).getUserId();
-        String name = this.editTextName.getText().toString().trim();
-        String address = this.editTextAddress.getText().toString().trim();
-        String city = this.editTextCity.getText().toString().trim();
-        String state = this.spinnerState.getSelectedItem().toString().trim();
-        String zip = this.editTextZipCode.getText().toString().trim();
-        String mobile = this.editTextMobile.getText().toString().trim();
-        String email = this.editTextEmail.getText().toString().trim();
+        String name = editTextName.getText().toString().trim();
+        String address = editTextAddress.getText().toString().trim();
+        String city = editTextCity.getText().toString().trim();
+        String state = spinnerState.getSelectedItem().toString().trim();
+        String zip = editTextZipCode.getText().toString().trim();
+        String mobile = editTextMobile.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
 
         User user = new User(userId, email, name, address, city, state, mobile, zip);
 
@@ -213,6 +212,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.e("Update-Profile", (new String(error.networkResponse.data, Charset.defaultCharset())));
-        Snackbar.make(this.editTextName, "Some error occurred\nTry again after some time", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(editTextName, "Some error occurred\nTry again after some time", Snackbar.LENGTH_LONG).show();
     }
 }

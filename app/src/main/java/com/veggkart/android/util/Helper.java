@@ -12,8 +12,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Creator: vbarad
- * Date: 2016-08-02
+ *
  * Project: veggkart
  */
 public class Helper {

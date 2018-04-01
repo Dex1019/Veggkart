@@ -56,27 +56,27 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setHomeButtonEnabled(true);
-        this.initialize(this.getIntent().getExtras());
+        initialize(this.getIntent().getExtras());
 
     }
 
     private void initialize(Bundle extras) {
         setContentView(R.layout.activity_checkout);
 
-        this.products = new ArrayList<>(Arrays.asList((new Gson()).fromJson(extras.getString(CheckoutActivity.PRODUCTS), Product[].class)));
+        products = new ArrayList<>(Arrays.asList((new Gson()).fromJson(extras.getString(CheckoutActivity.PRODUCTS), Product[].class)));
 
-        this.cartRecyclerView = this.findViewById(R.id.recyclerView_cart);
-        this.cartRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        this.cartAdapter = new CartAdapter(this.products);
-        this.cartRecyclerView.setAdapter(this.cartAdapter);
+        cartRecyclerView = findViewById(R.id.recyclerView_cart);
+        cartRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        cartAdapter = new CartAdapter(this.products);
+        cartRecyclerView.setAdapter(this.cartAdapter);
 
-        this.textViewNumberOfProducts = this.findViewById(R.id.textView_checkout_quantity);
-        this.textViewOrderTotal = this.findViewById(R.id.textView_checkout_orderTotal);
+        textViewNumberOfProducts = findViewById(R.id.textView_checkout_quantity);
+        textViewOrderTotal = findViewById(R.id.textView_checkout_orderTotal);
 
         this.textViewNumberOfProducts.setText(String.valueOf(this.cartAdapter.getNumberOfProducts()) + " products");
         this.textViewOrderTotal.setText(this.getString(R.string.price, this.cartAdapter.getOrderTotal()));
 
-        this.buttonPlaceOrder = this.findViewById(R.id.button_checkout_placeOrder);
+        this.buttonPlaceOrder = findViewById(R.id.button_checkout_placeOrder);
         this.buttonPlaceOrder.setOnClickListener(this);
     }
 
@@ -86,7 +86,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
         switch (viewId) {
             case R.id.button_checkout_placeOrder:
-                this.confirmContactDetailsAndPlaceOrder();
+                confirmContactDetailsAndPlaceOrder();
                 break;
         }
     }
@@ -128,23 +128,23 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void placeOrder() {
-        if (this.progressDialog != null && this.progressDialog.isShowing()) {
-            this.progressDialog.dismiss();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
         }
-        this.progressDialog = new ProgressDialog(this);
-        this.progressDialog.setIndeterminate(true);
-        this.progressDialog.setTitle("VegGKart");
-        this.progressDialog.setMessage("Placing order...");
-        this.progressDialog.setCancelable(false);
-        this.progressDialog.show();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setTitle("VegGKart");
+        progressDialog.setMessage("Placing order...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         APIHelper.placeOrder(this.products, this, this, this);
     }
 
     @Override
     public void onResponse(JSONObject response) {
-        if (this.progressDialog != null && this.progressDialog.isShowing()) {
-            this.progressDialog.dismiss();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
         }
 
         try {
@@ -153,11 +153,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 Snackbar.make(this.cartRecyclerView, "Order placed successfully", Snackbar.LENGTH_LONG).show();
                 CatalogueActivity.launchActivity(this);
             } else {
-                this.onErrorResponse(new VolleyError("Server error"));
+                onErrorResponse(new VolleyError("Server error"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            this.onErrorResponse(new VolleyError("Corrupt response"));
+            onErrorResponse(new VolleyError("Corrupt response"));
         }
     }
 

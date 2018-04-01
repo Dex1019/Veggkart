@@ -62,25 +62,25 @@ public class ProductsListFragment extends Fragment implements ItemUpdateListener
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     if (getArguments() != null) {
-      this.category = getArguments().getString(CATEGORY);
+      category = getArguments().getString(CATEGORY);
     }
-    this.products = this.categoryAdapter.getProducts(this.category);
+    products = this.categoryAdapter.getProducts(this.category);
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    this.rootView = inflater.inflate(R.layout.fragment_products_list, container, false);
+    rootView = inflater.inflate(R.layout.fragment_products_list, container, false);
 
-    this.recyclerViewProducts = (RecyclerView) rootView.findViewById(R.id.recyclerView_products);
-    this.recyclerViewProducts.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
-    this.productAdapter = new ProductAdapter(this.products, this);
-    this.recyclerViewProducts.setAdapter(this.productAdapter);
+    recyclerViewProducts = rootView.findViewById(R.id.recyclerView_products);
+    recyclerViewProducts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    productAdapter = new ProductAdapter(products, this);
+    recyclerViewProducts.setAdapter(productAdapter);
 
-    return this.rootView;
+    return rootView;
   }
 
   @Override
   public void onItemUpdate(int position, int quantity) {
-    this.categoryAdapter.setProductQuantity(this.category, position, quantity);
+    categoryAdapter.setProductQuantity(category, position, quantity);
   }
 }

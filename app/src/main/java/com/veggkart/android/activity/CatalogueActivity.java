@@ -55,7 +55,7 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.initialize();
+        initialize();
     }
 
     private void initialize() {
@@ -70,16 +70,16 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
 //      actionBar.setTitle(this.getResources().getString(R.string.app_name));
 //    }
 
-        this.cartButton = this.findViewById(R.id.imageButton_catalogue_cart);
-        this.orderTotalTextView = this.findViewById(R.id.textView_catalogue_orderTotal);
-        this.checkoutButton = this.findViewById(R.id.imageButton_catalogue_checkout);
+        cartButton = findViewById(R.id.imageButton_catalogue_cart);
+        orderTotalTextView = findViewById(R.id.textView_catalogue_orderTotal);
+        checkoutButton = findViewById(R.id.imageButton_catalogue_checkout);
 
-        this.cartButton.setOnClickListener(this);
-        this.checkoutButton.setOnClickListener(this);
+        cartButton.setOnClickListener(this);
+        checkoutButton.setOnClickListener(this);
 
-        this.orderTotalTextView.setText(this.getResources().getString(R.string.order_total, 0.0, 0));
+        orderTotalTextView.setText(this.getResources().getString(R.string.order_total, 0.0, 0));
 
-        this.categoryAdapter = CategoryAdapter.readFromSharedPreferences(this, this.getSupportFragmentManager(), this);
+        categoryAdapter = CategoryAdapter.readFromSharedPreferences(this, this.getSupportFragmentManager(), this);
 
         if (this.categoryAdapter == null) {
             String productsUrl = APIHelper.getEndpointProducts();
@@ -88,18 +88,18 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
 
             this.categoryAdapter = new CategoryAdapter(this.getSupportFragmentManager(), new ArrayList<Product>(), this);
         } else {
-//      this.findViewById(R.id.container_content).setVisibility(View.VISIBLE);
-            this.findViewById(R.id.placeholder_progress).setVisibility(View.GONE);
-            this.findViewById(R.id.placeHolder_error).setVisibility(View.GONE);
+//      findViewById(R.id.container_content).setVisibility(View.VISIBLE);
+            findViewById(R.id.placeholder_progress).setVisibility(View.GONE);
+            findViewById(R.id.placeHolder_error).setVisibility(View.GONE);
         }
 
         int position = CategoryAdapter.readPositionFromSharedPreferences(this);
 
-        this.tabLayout = this.findViewById(R.id.tabs_subBrokers);
-        this.viewPager = this.findViewById(R.id.viewPager_subBrokers);
-        this.viewPager.setAdapter(categoryAdapter);
-        this.tabLayout.setupWithViewPager(viewPager, true);
-        this.viewPager.setCurrentItem(position);
+        tabLayout = findViewById(R.id.tabs_subBrokers);
+        viewPager = findViewById(R.id.viewPager_subBrokers);
+        viewPager.setAdapter(categoryAdapter);
+        tabLayout.setupWithViewPager(viewPager, true);
+        viewPager.setCurrentItem(position);
     }
 
     @Override
@@ -115,10 +115,10 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
 
         switch (itemId) {
             case R.id.menu_catalogue_profile:
-                this.openProfile();
+                openProfile();
                 break;
             case R.id.menu_catalogue_signOut:
-                this.signOut();
+                signOut();
                 break;
         }
 
@@ -144,22 +144,22 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
             ArrayList<Product> products = new ArrayList<>(Arrays.asList((new Gson()).fromJson(response.getJSONArray("UArray").toString(), Product[].class)));
             this.categoryAdapter.refreshProducts(products);
 
-//      this.findViewById(R.id.container_content).setVisibility(View.VISIBLE);
-            this.findViewById(R.id.placeholder_progress).setVisibility(View.GONE);
-            this.findViewById(R.id.placeHolder_error).setVisibility(View.GONE);
-            this.findViewById(R.id.tabs_subBrokers).setVisibility(View.VISIBLE);
-            this.findViewById(R.id.item_price_detail_layout).setVisibility(View.VISIBLE);
+//      findViewById(R.id.container_content).setVisibility(View.VISIBLE);
+            findViewById(R.id.placeholder_progress).setVisibility(View.GONE);
+            findViewById(R.id.placeHolder_error).setVisibility(View.GONE);
+            findViewById(R.id.tabs_subBrokers).setVisibility(View.VISIBLE);
+            findViewById(R.id.item_price_detail_layout).setVisibility(View.VISIBLE);
         } catch (JSONException e) {
             e.printStackTrace();
-            this.onErrorResponse(new VolleyError("Corrupted response"));
+            onErrorResponse(new VolleyError("Corrupted response"));
         }
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
-//    this.findViewById(R.id.container_content).setVisibility(View.GONE);
-        this.findViewById(R.id.placeholder_progress).setVisibility(View.GONE);
-        this.findViewById(R.id.placeHolder_error).setVisibility(View.VISIBLE);
+//    findViewById(R.id.container_content).setVisibility(View.GONE);
+        findViewById(R.id.placeholder_progress).setVisibility(View.GONE);
+        findViewById(R.id.placeHolder_error).setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -168,8 +168,8 @@ public class CatalogueActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void openProfile() {
-        this.categoryAdapter.storePositionToSharedPreferences(this, this.viewPager.getCurrentItem());
-        this.categoryAdapter.storeToSharedPreferences(this);
+        categoryAdapter.storePositionToSharedPreferences(this, this.viewPager.getCurrentItem());
+        categoryAdapter.storeToSharedPreferences(this);
 
         ProfileActivity.launchActivity(this);
     }

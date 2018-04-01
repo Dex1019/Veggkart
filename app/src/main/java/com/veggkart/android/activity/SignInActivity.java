@@ -44,7 +44,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
 
 
-        this.initialize();
+        initialize();
     }
 
     private void initialize() {
@@ -64,15 +64,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 //            }
 
 
-            this.editTextUsername = this.findViewById(R.id.editText_signIn_username);
-            this.editTextPassword = this.findViewById(R.id.editText_signIn_password);
-            this.buttonSignIn = this.findViewById(R.id.button_signIn_signIn);
-            this.buttonSignUp = this.findViewById(R.id.button_signIn_signUp);
-            this.textViewSkip = this.findViewById(R.id.button_skip);
+            editTextUsername = findViewById(R.id.editText_signIn_username);
+            editTextPassword = findViewById(R.id.editText_signIn_password);
+            buttonSignIn = findViewById(R.id.button_signIn_signIn);
+            buttonSignUp = findViewById(R.id.button_signIn_signUp);
+            textViewSkip = findViewById(R.id.button_skip);
 
-            this.textViewSkip.setOnClickListener(this);
-            this.buttonSignIn.setOnClickListener(this);
-            this.buttonSignUp.setOnClickListener(this);
+            textViewSkip.setOnClickListener(this);
+            buttonSignIn.setOnClickListener(this);
+            buttonSignUp.setOnClickListener(this);
         }
     }
 
@@ -82,13 +82,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         switch (viewId) {
             case R.id.button_signIn_signIn:
-                this.signIn();
+                signIn();
                 break;
             case R.id.button_signIn_signUp:
-                this.signUp();
+                signUp();
                 break;
             case R.id.button_skip:
-                this.skip_listener();
+                skip_listener();
                 break;
         }
     }
@@ -98,30 +98,30 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void signIn() {
-        String username = this.editTextUsername.getText().toString().trim();
-        String password = this.editTextPassword.getText().toString().trim();
+        String username = editTextUsername.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
 
         boolean isInputValid = true;
 
         if (!username.matches("^[a-zA-Z0-9]+$")) {
             isInputValid = false;
-            this.editTextUsername.setError("Invalid username");
+            editTextUsername.setError("Invalid username");
         }
 
         if (!password.matches("^.{6,}$")) {
             isInputValid = false;
-            this.editTextPassword.setError("Invalid password");
+            editTextPassword.setError("Invalid password");
         }
 
         if (isInputValid) {
-            if (this.progressDialog != null && this.progressDialog.isShowing()) {
-                this.progressDialog.dismiss();
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
             }
-            this.progressDialog = new ProgressDialog(this);
-            this.progressDialog.setIndeterminate(true);
-            this.progressDialog.setTitle("VegGKart");
-            this.progressDialog.setMessage("Signing In...");
-            this.progressDialog.show();
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setTitle("VegGKart");
+            progressDialog.setMessage("Signing In...");
+            progressDialog.show();
 
             APIHelper.userSignIn(username, password, this, this, this);
         }
@@ -133,15 +133,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onResponse(JSONObject response) {
-        if (this.progressDialog != null && this.progressDialog.isShowing()) {
-            this.progressDialog.dismiss();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
         }
 
         try {
             String userId = response.getString("userid");
 
             if (userId != null && !userId.equals("null")) {
-                String username = this.editTextUsername.getText().toString().trim();
+                String username = editTextUsername.getText().toString().trim();
 
                 User user = User.getInstance(response.toString());
 
@@ -150,12 +150,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                 CatalogueActivity.launchActivity(this);
             } else {
-                this.editTextPassword.setText("");
-                this.editTextUsername.setError("Username or password invalid");
+                editTextPassword.setText("");
+                editTextUsername.setError("Username or password invalid");
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            this.onErrorResponse(new VolleyError("Corrupt network response"));
+            onErrorResponse(new VolleyError("Corrupt network response"));
         }
     }
 
