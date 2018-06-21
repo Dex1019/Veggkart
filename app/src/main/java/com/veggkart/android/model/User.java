@@ -5,8 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Creator: vbarad
- * Date: 2016-08-16
+ *
  * Project: veggkart
  */
 public class User {
