@@ -19,8 +19,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * Creator: vbarad
- * Date: 2016-08-07
+ * 
  * Project: veggkart
  */
 public class CategoryAdapter extends FragmentPagerAdapter {
