@@ -14,8 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * Creator: vbarad
- * Date: 2016-08-08
+ * 
  * Project: veggkart
  */
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
