@@ -22,8 +22,7 @@ import com.veggkart.android.util.APIHelper;
 import java.util.ArrayList;
 
 /**
- * Creator: vbarad
- * Date: 2016-08-07
+ * 
  * Project: veggkart
  */
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
